@@ -47,7 +47,7 @@
      <div style="background: #fff;height: 23px; width: 99%; margin: 10px;">
          <div style="float: left;">
              <input type="text" name="tags" placeholder="Type words to chart" class="tm-input"/>
-             <select data-placeholder="Choose a Topic..." class="chosen-select" style="width:80%;">
+             <select data-placeholder="Choose a Topic..." class="chosen-select" style="width:80%;" multiple>
 
              </select>
          </div>
@@ -201,7 +201,17 @@
         input = $('.tm-input').tagsManager();
         jQuery(".tm-input").focus();
 
-        $(".chosen-select").chosen();
+        $.get("data/topics.json", function(data){
+            data.forEach(function(entry){
+                $(".chosen-select").append($('<option>', { value : entry.id }).text(entry.name));
+            });
+            $(".chosen-select").trigger('chosen:updated');
+        });
+        $(".chosen-select").chosen({
+            width: "95%"
+        });
+
+
 
         // initialize chart
         $('.viz-chart').highcharts("StockChart",{
