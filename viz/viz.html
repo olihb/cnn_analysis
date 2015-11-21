@@ -15,20 +15,30 @@
 
     <style type="text/css">
 
-        html,body { height: 99%; margin: 0px; padding: 0px; }
-        #full { background: #fff; height: 99% }
+        html, body {
+            height: 99%;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #full {
+            background: #fff;
+            height: 99%
+        }
+
         label {
             display: block;
         }
-        .viz-chart{
+
+        .viz-chart {
             border-top: 1px;
             border-top-width: 1px;
             border-top-style: solid;
             border-top-color: #ccc;
 
-
         }
-        div.weekly{
+
+        div.weekly {
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
             font-size: 13px;
             width: 150px;
@@ -40,225 +50,248 @@
     </style>
 </head>
 <body>
- <!--
- -->
+<!--
+-->
 
- <div id="full">
-     <div style="background: #fff;height: 23px; width: 99%; margin: 10px;" id="container_input">
-         <div style="float: left;" >
-             <input type="text" name="tags" placeholder="Type words to chart" class="tm-input" id="input_tags"/>
-             <select data-placeholder="Choose a Topic..." class="chosen-select"  id="input_topics" multiple/>
-             </select>
-         </div>
-         <div class="weekly">
-             <input type="checkbox" name="week" value="weekly" />Group by Week
-         </div>
-
-     </div>
-
-    <div style="background: #00f; height: 95%;width: 100%" class="viz-chart"></div>
+<div id="full">
+    <div style="background: #fff;height: 23px; width: 99%; margin: 10px;" id="container_input">
+        <div style="float: left;">
+            <input type="text" name="tags" placeholder="Type words to chart" class="tm-input" id="input_tags"/>
+            <select data-placeholder="Choose a Topic..." class="chosen-select" id="input_topics" multiple/>
+            </select>
+        </div>
+        <div class="weekly">
+            <input type="checkbox" name="week" value="weekly" id="toggle_week"/>Group by Week
+        </div>
 
     </div>
 
+    <div style="background: #00f; height: 95%;width: 100%" class="viz-chart"></div>
 
-<script type="text/javascript" >
+</div>
 
-    // global vars
-    var chart, input;
-    var dynamodb, dataDict = {};
 
-    // call on loading
-    $(document).ready(function(){
-        initializeInterface(false);
-        initializeDynamo();
+<script type="text/javascript">
+
+// global vars
+var chart, input;
+var dynamodb, dataDict = {};
+var week = false;
+
+// call on loading
+$(document).ready(function () {
+    initializeInterface(false);
+    initializeDynamo();
+});
+
+
+function queryDynamoDB(tag) {
+    // retrieve DynamoDB
+    dynamodb.getItem({
+                TableName:'cnn_2015',
+                Key:{
+                    word:{
+                        S:tag}
+                }
+            }, dynamoDBResults
+    );
+}
+
+function addSeries(result) {
+    var tag = result.Item.word.S;
+    var data = [];
+    var weekOccurrences = {};
+    var weekAllOccurrences = {};
+    var weekDateArray = [];
+
+    // load date
+    $.each(result.Item.dates.L, function (index, value) {
+        if (week) {
+            var date = new Date(Date.parse(value.S));
+            date = getDateOfWeek(date.getWeek(), date.getWeekYear());
+
+            var occurrences = parseFloat(result.Item.occurrences.L[index].N);
+            var max_value = parseFloat(result.Item.dates_size.L[index].N);
+
+            if (date in weekOccurrences) {
+                weekOccurrences[date] = weekOccurrences[date] + occurrences;
+                weekAllOccurrences[date] = weekAllOccurrences[date] + max_value;
+            } else {
+                weekDateArray.push(date);
+                weekOccurrences[date] = occurrences;
+                weekAllOccurrences[date] = max_value;
+            }
+
+        } else {
+            item = [];
+            item.push(Date.parse(value.S));
+            var occurrences = parseFloat(result.Item.occurrences.L[index].N);
+            var max_value = parseFloat(result.Item.dates_size.L[index].N);
+            item.push(occurrences / max_value * 100);
+            data.push(item);
+        }
     });
 
 
-    function queryDynamoDB(tag){
-        // retrieve DynamoDB
-        dynamodb.getItem({
-                    TableName: 'cnn_2015',
-                    Key:{
-                        word:{
-                            S:tag}
-                    }
-                }, dynamoDBResults
-        );
-    }
-
-    function addSeries(result){
-        var tag = result.Item.word.S;
-        var data = [];
-        var weekOccurrences = {};
-        var weekAllOccurrences = {};
-        var weekDateArray = [];
-        var week = true;
-
-
-        // load date
-        $.each(result.Item.dates.L, function( index, value ) {
-            if (week){
-                var date = new Date(Date.parse(value.S));
-                date = getDateOfWeek(date.getWeek(),date.getWeekYear());
-
-                var occurrences = parseFloat(result.Item.occurrences.L[index].N);
-                var max_value = parseFloat(result.Item.dates_size.L[index].N);
-
-                if (date in weekOccurrences){
-                    weekOccurrences[date] = weekOccurrences[date] + occurrences;
-                    weekAllOccurrences[date] = weekAllOccurrences[date] + max_value;
-                } else {
-                    weekDateArray.push(date);
-                    weekOccurrences[date] =  occurrences;
-                    weekAllOccurrences[date] =  max_value;
-                }
-
-            } else {
-                item = [];
-                item.push(Date.parse(value.S));
-                var occurrences = parseFloat(result.Item.occurrences.L[index].N);
-                var max_value = parseFloat(result.Item.dates_size.L[index].N);
-                item.push(occurrences/max_value*100);
-                data.push(item);
-            }
+    if (week) {
+        $.each(weekDateArray, function (index, value) {
+            item = [];
+            item.push(value.getTime());
+            var occ = weekOccurrences[value];
+            var maxOcc = weekAllOccurrences[value];
+            item.push(occ / maxOcc * 100);
+            data.push(item);
         });
-
-
-        if (week){
-            $.each(weekDateArray, function (index, value){
-                item = [];
-                item.push(value.getTime());
-                var occ = weekOccurrences[value];
-                var maxOcc = weekAllOccurrences[value];
-                item.push(occ/maxOcc*100);
-                data.push(item);
-            });
-        }
-
-
-        chart.addSeries({
-            name: tag,
-            data: data,
-            dataGrouping: {
-                enabled: true
-            }
-        });
-
     }
 
-    function removeSeries(tag){
-        var seriesLength = chart.series.length;
-        for(var i = seriesLength - 1; i > -1; i--) {
-            if(chart.series[i].name == tag)
-                chart.series[i].remove();
+
+    chart.addSeries({
+        name:tag,
+        data:data,
+        dataGrouping:{
+            enabled:true
         }
-        if (chart.series.length == 0){
-            chart.showLoading("Type in a word in the input field at the top of the screen to visualize its trend")
-        }
+    });
+
+}
+
+function removeSeries(tag) {
+    var seriesLength = chart.series.length;
+    for (var i = seriesLength - 1; i > -1; i--) {
+        if (chart.series[i].name == tag)
+            chart.series[i].remove();
     }
-
-    function dynamoDBResults(err, data){
-
-        // verify for errors
-        if (err==true || (data!=true && jQuery.isEmptyObject(data))){
-
-            // invalid input - trigger error feedback
-            $('input.tm-input')
-                    .attr('placeholder','Word Not Found')
-                    .css('border-color','red')
-                    .delay(1500)
-                    .queue(function(next) {
-                        $(this).attr('placeholder','Type words to chart');
-                        $(this).css('border-color','white');
-                        input.tagsManager('popTag');
-                        next();
-                    });
-        } else {
-            // valid input - add series to chart
-            chart.hideLoading();
-            addSeries(data);
-        }
-    }
-
-    function initializeDynamo(){
-        // initialize connector to AWS DynamoDB - read-only access to the cnn table
-        dynamodb = new AWS.DynamoDB({
-            accessKeyId:"AKIAIXQEGMSMVFJD32YA",
-            secretAccessKey:"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",
-            region:"us-east-1"})
-    }
-
-    function initializeInterface(topics){
-
-
-        if (topics) {
-            // initialize topics
-
-            $("#input_tags").hide();
-            select_width = $("#container_input").width();
-            $("#input_topics").css("width",select_width*0.75);
-            $(".chosen-select").chosen();
-            $.get("data/topics.json", function(data){
-                data.forEach(function(entry){
-                    $(".chosen-select").append($('<option>', { value : entry.id }).text(entry.name));
-                });
-                $(".chosen-select").trigger('chosen:updated');
-            });
-
-        } else {
-            // initialize tags
-
-            $("#input_topics").hide();
-            jQuery(".tm-input").tagsManager({ });
-            jQuery(".tm-input").on('tm:pushed', function(e, tag) {
-                queryDynamoDB(tag);
-            });
-            jQuery(".tm-input").on('tm:spliced', function(e, tag){
-                removeSeries(tag);
-            });
-            input = $('.tm-input').tagsManager();
-            jQuery(".tm-input").focus();
-        }
-
-        // initialize chart
-        $('.viz-chart').highcharts("StockChart",{
-            chart: {
-                zoomType: 'x',
-                showAxes: true
-            },
-            title: {
-                text:null
-            },
-            loading:{
-
-            },
-            credit: {
-                enabled: false
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                        'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime',
-                min: Date.UTC(2000,1,1),
-                max: Date.UTC(2015,1,1)
-            },
-            yAxis: {
-                title: {
-                    text: '% of occurrences'
-                },
-                min: 0
-            },
-            legend: {
-                enabled: true
-            }
-        });
-        chart = $('.viz-chart').highcharts();
+    if (chart.series.length == 0) {
         chart.showLoading("Type in a word in the input field at the top of the screen to visualize its trend")
     }
+}
+
+function dynamoDBResults(err, data) {
+
+    // verify for errors
+    if (err == true || (data != true && jQuery.isEmptyObject(data))) {
+
+        // invalid input - trigger error feedback
+        $('input.tm-input')
+                .attr('placeholder', 'Word Not Found')
+                .css('border-color', 'red')
+                .delay(1500)
+                .queue(function (next) {
+                    $(this).attr('placeholder', 'Type words to chart');
+                    $(this).css('border-color', 'white');
+                    input.tagsManager('popTag');
+                    next();
+                });
+    } else {
+        // valid input - add series to chart
+        chart.hideLoading();
+        addSeries(data);
+    }
+}
+
+function initializeDynamo() {
+    // initialize connector to AWS DynamoDB - read-only access to the cnn table
+    dynamodb = new AWS.DynamoDB({
+        accessKeyId:"AKIAIXQEGMSMVFJD32YA",
+        secretAccessKey:"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",
+        region:"us-east-1"})
+}
+
+function week_button_callback() {
+
+    // update week global state
+    week = $("#toggle_week").is(':checked');
+
+    // get list and reload
+    tag_list = jQuery(".tm-input").tagsManager('tags');
+    console.log(tag_list)
+    while (chart.series.length > 0)
+        chart.series[0].remove(true);
+
+    tag_list.forEach(function (entry) {
+        queryDynamoDB(entry);
+    });
+}
+
+function initializeInterface(topics) {
 
 
+    if (topics) {
+        // initialize topics
+
+        $("#input_tags").hide();
+        select_width = $("#container_input").width();
+        $("#input_topics").css("width", select_width * 0.75);
+        $(".chosen-select").chosen();
+        $.get("data/topics.json", function (data) {
+            data.forEach(function (entry) {
+                $(".chosen-select").append($('<option>', { value:entry.id }).text(entry.name));
+            });
+            $(".chosen-select").trigger('chosen:updated');
+        });
+
+    } else {
+        // initialize tags
+
+        $("#input_topics").hide();
+        jQuery(".tm-input").tagsManager();
+        jQuery(".tm-input").on('tm:pushed', function (e, tag) {
+            queryDynamoDB(tag);
+        });
+        jQuery(".tm-input").on('tm:spliced', function (e, tag) {
+            removeSeries(tag);
+        });
+        input = $('.tm-input').tagsManager();
+        jQuery(".tm-input").focus();
+    }
+
+    // initialize chart
+    $('.viz-chart').highcharts("StockChart", {
+        chart:{
+            zoomType:'x',
+            showAxes:true
+        },
+        title:{
+            text:null
+        },
+        loading:{
+
+        },
+        credit:{
+            enabled:false
+        },
+        subtitle:{
+            text:document.ontouchstart === undefined ?
+                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+        },
+        xAxis:{
+            type:'datetime',
+            min:Date.UTC(2000, 1, 1),
+            max:Date.UTC(2015, 1, 1)
+        },
+        yAxis:{
+            title:{
+                text:'% of occurrences'
+            },
+            min:0
+        },
+        legend:{
+            enabled:true
+        },
+        tooltip: {
+            valueDecimals: 1,
+            valueSuffix: ' %'
+        }
+    });
+    chart = $('.viz-chart').highcharts();
+    chart.showLoading("Type in a word in the input field at the top of the screen to visualize its trend")
+}
+
+
+// initialize week button
+$('#toggle_week').click(function () {
+    week_button_callback();
+});
 
 
 </script>
