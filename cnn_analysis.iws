@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33fdf36c-1273-4b33-9cd0-acb254f4c5d7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viz/css/viz.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viz/js/vis2.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.iws" afterPath="$PROJECT_DIR$/cnn_analysis.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/viz/viz.html" afterPath="$PROJECT_DIR$/viz/viz.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/viz/js/vis2.js" afterPath="$PROJECT_DIR$/viz/js/vis.js" />
     </list>
     <ignored path="cnn_analysis.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,10 +73,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vis2.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/viz/js/vis2.js">
+      <file leaf-file-name="vis.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/viz/js/vis.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="226" column="3" selection-start="6267" selection-end="6267" vertical-scroll-proportion="0.9402391">
+            <state line="217" column="34" selection-start="6011" selection-end="6011" vertical-scroll-proportion="0.6713147">
               <folding />
             </state>
           </provider>
@@ -876,9 +873,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/viz/js/vis2.js">
+    <entry file="file://$PROJECT_DIR$/viz/js/vis.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="226" column="3" selection-start="6267" selection-end="6267" vertical-scroll-proportion="0.9402391">
+        <state line="217" column="34" selection-start="6011" selection-end="6011" vertical-scroll-proportion="0.6713147">
           <folding />
         </state>
       </provider>
