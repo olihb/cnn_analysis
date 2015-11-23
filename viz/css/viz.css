@@ -1,0 +1,32 @@
+
+html, body {
+    height: 99%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#full {
+    background: #fff;
+    height: 99%
+}
+
+label {
+    display: block;
+}
+
+.viz-chart {
+    border-top: 1px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: #ccc;
+
+}
+
+div.weekly {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    width: 150px;
+    float: right;
+    text-align: right;
+    margin-right: 5px;
+}
