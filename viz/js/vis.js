@@ -121,7 +121,7 @@ function initializeDynamo() {
     dynamodb = new AWS.DynamoDB({
         accessKeyId:"AKIAIXQEGMSMVFJD32YA",
         secretAccessKey:"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",
-        region:"us-east-1"})
+        region:"us-east-1"});
 }
 
 function week_button_callback() {
