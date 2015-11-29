@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><component name="dataSourceStorage">
+  <data-source source="LOCAL" name="Data Source" product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" uuid="5650e386-ae9b-4484-9eb3-687a102856f8">
+    <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+    <jdbc-url>jdbc:sqlite:/home/olihb/IdeaProjects/cnn_analysis/topics.db</jdbc-url>
+    <libraries>
+      <library>
+        <url>jar://$USER_HOME$/Documents/sqlite-jdbc-3.8.9.jar!/</url>
+      </library>
+      <library>
+        <url>file://$USER_HOME$/Documents/xerial-sqlite-license.txt</url>
+      </library>
+    </libraries>
+    <table name="document_index" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <column name="chunk" sqlType="ID" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="stamp" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="url" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="md5" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+    </table>
+    <table name="document_topics" schema="" catalog="" type="TABLE">
+      <column name="document_id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <column name="topic_id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <column name="similarity" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6" />
+    </table>
+  </data-source>
+</component>
