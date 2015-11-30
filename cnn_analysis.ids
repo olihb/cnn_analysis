@@ -23,4 +23,19 @@
       <column name="similarity" sqlType="FLOAT" length="2000000000" precision="10" nullable="true" jdbcType="6" />
     </table>
   </data-source>
+  <data-source source="LOCAL" name="topics_test" product="SQLite" version="3.8.9" jdbc-version="2.1" driver-name="SQLiteJDBC" driver-version="native" uuid="b4fd2138-9006-478a-a436-b8fdacc5f9b3">
+    <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+    <jdbc-url>jdbc:sqlite:/home/olihb/IdeaProjects/cnn_analysis/data/test/topics.db</jdbc-url>
+    <libraries>
+      <library>
+        <url>jar://$USER_HOME$/Documents/sqlite-jdbc-3.8.9.jar!/</url>
+      </library>
+      <library>
+        <url>file://$USER_HOME$/Documents/xerial-sqlite-license.txt</url>
+      </library>
+    </libraries>
+    <table name="dictionary" schema="" catalog="" type="TABLE" />
+    <table name="document" schema="" catalog="" type="TABLE" />
+    <table name="model" schema="" catalog="" type="TABLE" />
+  </data-source>
 </component>
