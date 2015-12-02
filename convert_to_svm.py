@@ -5,56 +5,39 @@ from tqdm import *
 from collections import defaultdict
 
 
-
 # filename
 dictionary_file = "data/cnn/cnn.word_id.dict"
 svm_file = "data/cnn/cnn.libsvm"
+linear_matrix_file = "data/cnn/cnn.linear"
 date_file = "data/cnn/cnn.date"
 
-# data
+
+stopword_file = "stopwords.txt"
+
+# config
 chunk_size = 15
 PATTERN = re.compile('([A-Za-z0-9_/-]+)', re.UNICODE)
 
-stop_words = set ('ll,don,go,ve,those,much,over,even,again,isn,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your'.split(','))
-
+# config dates
 start_date = "2000-01-01"
-end_date =  "2001-01-01"
+end_date =  "2000-02-01"
+
+# data structures
+stop_words = set()
+dictionary_index = dict()
+dictionary_counts = dict()
+current_dict_index = 0
 
 query = {
-    "query": {
-        "match_all": {
-
-        }
-    },
-    "filter": {
-        "range" : {
-            "metadata.date" : {
-                "gte" : start_date,
-                "lt" : end_date
-            }
-        }
-    },
-    "sort": [
-            {
-            "metadata.date" : {"order" : "asc"}
-        },
-            {
-            "metadata.link" : {"order" : "asc"}
-        }
-    ]
+    "query": {"match_all": {}},
+    "filter": {"range" : {"metadata.date" : {"gte" : start_date,"lt" : end_date}}},
+    "sort": [{"metadata.date" : {"order" : "asc"}},{"metadata.link" : {"order" : "asc"}}]
 }
 
-
-def unique_list(seq):
-    seen = set()
-    seen_add = seen.add
-    return [ x for x in seq if not (x in seen or seen_add(x))]
-
-
-def filter_dictionary(dictionary_counts, min_occurences, max_occurences):
-    for i in dictionary_counts.keys():
-        if dictionary_counts[i]>(max_occurences) or dictionary_counts[i]<min_occurences:
-            dictionary_counts.pop(i, None)
+def load_stopwords(filename):
+    with open(filename, "r") as file:
+        for line in tqdm(file):
+            stop_words.add(line.strip())
 
 def tokenize(text):
     output = []
@@ -73,15 +56,6 @@ def tokenize(text):
     return output
 
 
-def convert_count_to_index(dictionary_counts):
-    j=0
-    index = {}
-    for i in dictionary_counts.keys():
-        index[i]=j
-        j += 1
-    return index
-
-
 def build_chunks(all_dialog):
     output = []
     current_chunk = []
@@ -91,7 +65,6 @@ def build_chunks(all_dialog):
             current_chunk = []
         else:
             current_chunk.append(dialog)
-
 
     # remaining dialog lines should be a new doc only if 1/2 of the chunk size, otherwise merge
     content = " ".join(current_chunk)
@@ -106,45 +79,23 @@ def build_chunks(all_dialog):
     return output
 
 
-def build_dict(query):
+def process_word(word):
+    global current_dict_index
+    if word in dictionary_index:
+        dictionary_counts[word]+=1
+        return dictionary_index[word]
+    else:
+        dictionary_counts[word]=1
+        dictionary_index[word]=current_dict_index
+        current_dict_index+=1
+        return dictionary_index[word]
 
-    dictionary_counts = {}
-    document_count = 0
+def build_matrix(elastic_search, query, f_svm, f_date, f_linear):
 
-    scan_resp = helpers.scan(client=elastic_search, query=query, scroll="10m", timeout="10m", preserve_order=True)
-    for resp in tqdm(scan_resp):
-
-        # merge dialog
-        all_dialogs = map(lambda x : x['dialog']+" ",resp['_source']['content'])
-
-
-        if len(all_dialogs)>0:
-            # break into document chunks
-            chunks = build_chunks(all_dialogs)
-
-            # iterate over document chunks
-            for chunk in chunks:
-                tokens = tokenize(chunk)
-                for word in unique_list(tokens):
-                    if word not in stop_words:
-                        if word in dictionary_counts:
-                            dictionary_counts[word] = dictionary_counts[word] + 1
-                        else:
-                            dictionary_counts[word] = 1
-                document_count += 1
-
-    return dictionary_counts, document_count
-
-
-def build_matrix(query, index_dict, f_svm, f_date):
-
-    global_index = 1
-    dict_hash = defaultdict(lambda: 0)
+    matrix_index = 1
 
     scan_resp = helpers.scan(client=elastic_search, query=query, scroll="10m", timeout="10m", preserve_order=True)
     for resp in tqdm(scan_resp):
-
-
 
         # get metadate indicator
         date = resp['_source']['metadata']['date']
@@ -162,15 +113,15 @@ def build_matrix(query, index_dict, f_svm, f_date):
         for index, chunk in enumerate(chunks):
             tokens = tokenize(chunk)
 
-            f_svm.write(str(global_index)+'\t')
+            f_svm.write(str(matrix_index)+'\t')
 
             line = defaultdict(lambda: 0)
 
             for word in tokens:
-                if word in index_dict:
-                    word_index = index_dict[word]
+                if word not in stop_words:
+                    word_index = process_word(word)
                     line[word_index]+=1
-                    dict_hash[word_index]+=1
+                    f_linear.write(str(matrix_index)+'\t'+str(word_index)+'\n')
 
             for index, token in enumerate(line.keys()):
                 if index>0:
@@ -178,40 +129,34 @@ def build_matrix(query, index_dict, f_svm, f_date):
                 f_svm.write(str(token)+':'+str(line[token]))
 
             f_svm.write('\n')
+            f_date.write(str(matrix_index)+'\t'+date+'\t'+link+'\n')
+            matrix_index += 1
 
-            f_date.write(str(global_index)+'\t'+date+'\t'+link+'\n')
 
-            global_index += 1
+def main():
 
-    return dict_hash
+    # initialize elastic search
+    elastic_search = Elasticsearch()
 
-#####MAIN#####
+    # parse content to build dictionary
+    load_stopwords(stopword_file)
 
-# initialize elastic search
-elastic_search = Elasticsearch()
+    # process and save matrix
+    f_svm = open (svm_file, 'w')
+    f_date = open (date_file, 'w')
+    f_linear = open (linear_matrix_file, 'w')
+    build_matrix(elastic_search, query, f_svm, f_date, f_linear)
+    f_svm.close()
+    f_date.close()
+    f_linear.close()
 
-# parse content to build dictionary
-dictionary_counts, document_count = build_dict(query)
-print "size of dictionary before filtering: %i" % len(dictionary_counts)
+    # write out dict
+    f_dict = open (dictionary_file, 'w')
+    for word in dictionary_index.keys():
+        id = dictionary_index[word]
+        counts = dictionary_counts[word]
+        f_dict.write(str(id) + '\t' + word + '\t' + str(counts)+'\n')
+    f_dict.close()
 
-# filter dictionary to remove extreme
-filter_dictionary(dictionary_counts, 5, document_count/2)
-index_dict = convert_count_to_index(dictionary_counts)
-print "size of dictionary after filtering: %i" % len(dictionary_counts)
-
-# process and save matrix
-f_svm = open (svm_file, 'w')
-f_date = open (date_file, 'w')
-dict_hash = build_matrix(query, index_dict, f_svm, f_date)
-f_svm.close()
-f_date.close()
-
-# write out dict
-hash = {}
-f_dict = open (dictionary_file, 'w')
-for key in index_dict.keys():
-    hash[index_dict[key]]=key
-for index in range(len(hash)):
-    value = hash[index].encode('ascii', 'ignore').decode('ascii')
-    f_dict.write(str(index) + '\t' + value + '\t' + str(dict_hash[index])+'\n')
-f_dict.close()
+if __name__ == "__main__":
+    main()

@@ -2,11 +2,13 @@ from collections import defaultdict
 from boto.dynamodb2.table import Table
 from tqdm import *
 
-__author__ = 'olihb@olihb.com'
+# filename
+dictionary_file = 'data/cnn/cnn.word_id.dict'
+date_file = 'data/cnn/cnn.date'
+linear_matrix_file = 'data/cnn/cnn.linear'
 
-#filename = 'data/cnn_news_2000-01-01_2001-01-02_15'
-filename = 'data/cnn_news_2000-01-01_2015-06-01_15'
-dynamoDB_table = 'cnn_2015'
+# dynamo table
+dynamoDB_table = 'cnn_2001'
 
 def load_dict(filename):
     print "Load dictionary:"
@@ -24,7 +26,7 @@ def load_index(filename):
     with open(filename) as file:
         for line in tqdm(file, leave=True):
             cells = line.strip().split('\t')
-            index[cells[0]] = cells[2]
+            index[cells[0]] = cells[1]
     return index
 
 def process_index(filename, index, keywords):
@@ -43,42 +45,47 @@ def process_index(filename, index, keywords):
             occurrences_by_date[year] += 1
     return words, occurrences, occurrences_by_date
 
-# read dictionary
-keywords = load_dict(filename+".dict")
 
-# read index
-index = load_index(filename+".index")
+def main():
+    # read dictionary
+    keywords = load_dict(dictionary_file)
 
-# process matrix
-words_date, occurrences_by_words, occurrences_by_date = process_index(filename+'.linear',index, keywords)
+    # read index
+    index = load_index(date_file)
 
-table = Table(dynamoDB_table)
-with table.batch_write() as batch:
+    # process matrix
+    words_date, occurrences_by_words, occurrences_by_date = process_index(linear_matrix_file, index, keywords)
 
-    for word in tqdm(words_date.keys(), desc='Upload to dynamoDB', leave=True):
-        output = {}
-        data = words_date[word]
+    table = Table(dynamoDB_table)
+    with table.batch_write() as batch:
+
+        for word in tqdm(words_date.keys(), desc='Upload to dynamoDB', leave=True):
+            output = {}
+            data = words_date[word]
 
 
-        occurrences = []
-        dates_size = []
-        dates = []
+            occurrences = []
+            dates_size = []
+            dates = []
 
-        for key,value in data.iteritems():
-            occurrences.append(value)
-            dates.append(key)
-            dates_size.append(occurrences_by_date[key])
+            for key,value in data.iteritems():
+                occurrences.append(value)
+                dates.append(key)
+                dates_size.append(occurrences_by_date[key])
 
-        zipped = zip(dates, occurrences, dates_size)
-        zipped.sort()
-        dates, occurrences, dates_size = zip(*zipped)
+            zipped = zip(dates, occurrences, dates_size)
+            zipped.sort()
+            dates, occurrences, dates_size = zip(*zipped)
 
-        output['word'] = word
-        output['source'] = filename
-        output['occurrences'] = list(occurrences)
-        output['dates_size'] = list(dates_size)
-        output['dates'] = list(dates)
-        output['occurrences_size'] = occurrences_by_words[word]
+            output['word'] = word
+            output['source'] = linear_matrix_file
+            output['occurrences'] = list(occurrences)
+            output['dates_size'] = list(dates_size)
+            output['dates'] = list(dates)
+            output['occurrences_size'] = occurrences_by_words[word]
 
-        batch.put_item(data=output)
+            print output
+            batch.put_item(data=output)
 
+if __name__ == "__main__":
+    main()

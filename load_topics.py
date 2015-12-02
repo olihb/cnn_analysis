@@ -3,9 +3,9 @@ import sys
 from tqdm import *
 
 # files
-dictionary_file = "data/test/nytimes.word_id.dict"
-model_file = "data/test/server_0_table_0.model"
-doc_file = "data/test/doc_topic.0"
+dictionary_file = "/home/olihb/lightlda/data/cnn/cnn.word_id.dict"
+model_file = "/home/olihb/lightlda/data/cnn/server_0_table_0.model"
+doc_file = "/home/olihb/lightlda/data/cnn/doc_topic.0"
 
 # database
 database = "data/test/topics.db"

@@ -45,7 +45,7 @@ def main():
 
     con = None
     try:
-        con = lite.connect('topics.db')
+        con = lite.connect('data/cnn/topics.db')
         cur = con.cursor()
 
         create_tables(cur)
