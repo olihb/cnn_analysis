@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33fdf36c-1273-4b33-9cd0-acb254f4c5d7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stopwords.txt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/convert_to_json.py" afterPath="$PROJECT_DIR$/convert_to_json.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.ids" afterPath="$PROJECT_DIR$/cnn_analysis.ids" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.ipr" afterPath="$PROJECT_DIR$/cnn_analysis.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.iws" afterPath="$PROJECT_DIR$/cnn_analysis.iws" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/convert_to_svm.py" afterPath="$PROJECT_DIR$/convert_to_svm.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/convert_to_topics.py" afterPath="$PROJECT_DIR$/convert_to_topics.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_topics.py" afterPath="$PROJECT_DIR$/load_topics.py" />
     </list>
-    <list id="0d499866-5ad8-47fd-ae60-90d6bc908834" name="New changelist" comment="New changelist">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.iws" afterPath="$PROJECT_DIR$/cnn_analysis.iws" />
-    </list>
+    <list id="0d499866-5ad8-47fd-ae60-90d6bc908834" name="New changelist" comment="New changelist" />
     <ignored path="cnn_analysis.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -92,10 +89,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="convert_to_json.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/convert_to_json.py">
+      <file leaf-file-name="topics_test" pinned="true" current="false" current-in-tab="false">
+        <entry file="mock:///topics_test">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="3" selection-start="2224" selection-end="2224" vertical-scroll-proportion="0.0">
+            <state line="13" column="19" selection-start="268" selection-end="268" vertical-scroll-proportion="-6.724138">
               <folding />
             </state>
           </provider>
@@ -104,16 +101,16 @@
       <file leaf-file-name="convert_to_topics.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/convert_to_topics.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="31" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.30604982">
+            <state line="32" column="73" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.75">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="convert_to_svm.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/convert_to_svm.py">
+      <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/cnn/data/out-100/test.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="142" column="41" selection-start="3803" selection-end="3803" vertical-scroll-proportion="0.0">
+            <state line="11" column="21" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -135,7 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/viz/js/jquery.tags.js" />
         <option value="$PROJECT_DIR$/viz/cnn_visualisation.html" />
         <option value="$PROJECT_DIR$/viz/js/datemagic.js" />
         <option value="$PROJECT_DIR$/viz/data/topics.json" />
@@ -145,17 +141,19 @@
         <option value="$PROJECT_DIR$/viz/js/vis2.js" />
         <option value="$PROJECT_DIR$/viz/js/vis.js" />
         <option value="/Data Source" />
-        <option value="$PROJECT_DIR$/load_topics.py" />
-        <option value="/topics_test" />
         <option value="$PROJECT_DIR$/stopwords.txt" />
-        <option value="$PROJECT_DIR$/convert_to_svm.py" />
         <option value="$PROJECT_DIR$/convert_to_json.py" />
         <option value="$PROJECT_DIR$/convert_to_topics.py" />
+        <option value="$PROJECT_DIR$/convert_to_svm.py" />
+        <option value="$PROJECT_DIR$/data/cnn/data/out-100/test.sql" />
+        <option value="/topics_test" />
+        <option value="$PROJECT_DIR$/load_topics.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1763" />
+    <option name="x" value="-1" />
+    <option name="width" value="1922" />
     <option name="height" value="961" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -245,20 +243,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cnn_analysis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cnn_analysis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -275,6 +259,52 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="cnn_analysis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="data" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -318,7 +348,7 @@
       <recent name="$PROJECT_DIR$/viz/js" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.to_json">
+  <component name="RunManager" selected="Python.load_topics">
     <configuration default="false" name="Default" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console" temporary="true">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
@@ -733,10 +763,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1763" height="961" extended-state="0" />
-    <editor active="false" />
+    <frame x="-1" y="0" width="1922" height="961" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15598291" sideWeight="0.7233502" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2536946" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36698717" sideWeight="0.7463054" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881773" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -751,12 +782,11 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.262697" sideWeight="0.7241379" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27586207" sideWeight="0.80662394" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16559829" sideWeight="0.7463054" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27093595" sideWeight="0.80662394" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881773" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38324872" sideWeight="0.18963675" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.45197046" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -869,16 +899,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="dbDummy://dbElement:/cnn_analysis7d361d78/5650e386-ae9b-4484-9eb3-687a102856f8/..document_index">
-      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbElement:/cnn_analysis7d361d78/5650e386-ae9b-4484-9eb3-687a102856f8/..document_topics">
-      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="dbDummy://dbElement:/cnn_analysis7d361d78/b4fd2138-9006-478a-a436-b8fdacc5f9b3/..dictionary">
       <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
         <state />
@@ -889,19 +909,9 @@
         <state />
       </provider>
     </entry>
-    <entry file="dbDummy://dbElement:/cnn_analysis7d361d78/b4fd2138-9006-478a-a436-b8fdacc5f9b3/..model">
-      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cluster.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="28" selection-start="483" selection-end="483" vertical-scroll-proportion="0.2522639" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/cnn/cnn.word_id.dict">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3761" column="15" selection-start="58954" selection-end="58961" vertical-scroll-proportion="0.33270678" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build_matrix.py">
@@ -916,35 +926,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/format_spark.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="75" selection-start="4657" selection-end="4657" vertical-scroll-proportion="-0.30347595">
+        <state line="154" column="75" selection-start="4657" selection-end="4657" vertical-scroll-proportion="-0.30347595" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/convert_to_json.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="41" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.7251908" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/convert_to_svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="20" selection-start="1519" selection-end="1519" vertical-scroll-proportion="-0.96564883" />
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbElement:/cnn_analysis7d361d78/b4fd2138-9006-478a-a436-b8fdacc5f9b3/..model">
+      <provider selected="true" editor-type-id="com.intellij.persistence.database.editor.DatabaseTableFileEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.aws/src/tqdm/tqdm/_tqdm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="4" selection-start="3308" selection-end="3308" vertical-scroll-proportion="-0.06537102">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/load_topics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="7" selection-start="56" selection-end="61" vertical-scroll-proportion="0.053380784">
+        <state line="8" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.1590106">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/convert_to_json.py">
+    <entry file="file://$PROJECT_DIR$/data/cnn/data/out-100/test.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="3" selection-start="2224" selection-end="2224" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/convert_to_svm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="41" selection-start="3803" selection-end="3803" vertical-scroll-proportion="0.0">
+        <state line="11" column="21" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/convert_to_topics.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="31" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.30604982">
+        <state line="32" column="73" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.75">
           <folding />
         </state>
       </provider>

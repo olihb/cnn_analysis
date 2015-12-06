@@ -20,7 +20,7 @@ PATTERN = re.compile('([A-Za-z0-9_/-]+)', re.UNICODE)
 
 # config dates
 start_date = "2000-01-01"
-end_date =  "2000-02-01"
+end_date =  "2015-11-01"
 
 # data structures
 stop_words = set()
