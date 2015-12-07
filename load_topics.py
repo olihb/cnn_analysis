@@ -1,6 +1,7 @@
 import sqlite3 as lite
 import sys
 from tqdm import *
+import getopt
 
 # files
 dictionary_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/cnn.word_id.dict"
@@ -10,6 +11,9 @@ date_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/cnn.date"
 
 # database
 database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.db"
+
+output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic.csv"
+output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic_dict.csv"
 
 def initialize_tables(cur):
     # drop tables
@@ -50,26 +54,73 @@ def load_model(cur, filename, table):
 
     cur.executemany("insert into "+table+" values (?,?,?)", lst)
 
-def main():
+def dump_to_csv(cur, output_filename, output_filename_dict):
+    print 'querying...'
+    cur.execute(""" select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
+                    from model m
+                    join dictionary d on m.word_id=d.id
+                    where d.occ>20000;""")
+    rows = cur.fetchall()
+
+    print 'output to csv'
+    words_dict = dict()
+    words_dict_index = 0
+    with open(output_filename, 'w') as csv_file:
+        csv_file.write('word_index,topic,sim\n')
+        for row in tqdm(rows, leave=True):
+            word = row[1]
+            topic = row[2]
+            sim = row[3]
+            if word not in words_dict:
+                words_dict[word]=words_dict_index
+                words_dict_index+=1
+            index = words_dict[word]
+            csv_file.write(str(index)+','+str(topic)+','+str(sim)+'\n')
+
+    print 'output to dict'
+    with open(output_filename_dict, 'w') as dict_file:
+        dict_file.write('word_index,word\n')
+        for word in tqdm(words_dict.keys(), leave=True):
+            dict_file.write(str(words_dict[word])+','+word+'\n')
+
+
+def main(argv):
 
     con = None
     try:
         con = lite.connect(database)
         cur = con.cursor()
 
-        initialize_tables(cur)
-        con.commit()
+        # arguments
+        try:
+            opts, args = getopt.getopt(argv, "lpc")
+        except getopt.GetoptError:
+            sys.exit(2)
 
-        load_dictionary(cur, dictionary_file)
+        for opt, arg in opts:
+            # load tables
+            if opt == '-l':
+                initialize_tables(cur)
+                con.commit()
 
-        load_model(cur, model_file, "model")
-        con.commit()
+                load_dictionary(cur, dictionary_file)
 
-        load_model(cur, doc_file, "document")
-        con.commit()
+                load_model(cur, model_file, "model")
+                con.commit()
 
-        load_model(cur, date_file, "dates")
-        con.commit()
+                load_model(cur, doc_file, "document")
+                con.commit()
+
+                load_model(cur, date_file, "dates")
+                con.commit()
+
+            # send to dynamodb
+            elif opt =='-p':
+                print "dynamo"
+
+            elif opt == '-c':
+                dump_to_csv(cur, output_file_csv, output_file_csv_dict)
+
 
     except lite.Error, e:
         print "Error %s:" % e.args[0]
@@ -80,4 +131,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

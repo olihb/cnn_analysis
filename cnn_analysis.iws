@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="33fdf36c-1273-4b33-9cd0-acb254f4c5d7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.ids" afterPath="$PROJECT_DIR$/cnn_analysis.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.ipr" afterPath="$PROJECT_DIR$/cnn_analysis.ipr" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/viz.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/convert_to_topics.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cnn_analysis.iws" afterPath="$PROJECT_DIR$/cnn_analysis.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/convert_to_svm.py" afterPath="$PROJECT_DIR$/convert_to_svm.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/load_topics.py" afterPath="$PROJECT_DIR$/load_topics.py" />
     </list>
     <list id="0d499866-5ad8-47fd-ae60-90d6bc908834" name="New changelist" comment="New changelist" />
@@ -79,8 +78,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -89,28 +88,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="topics_test" pinned="true" current="false" current-in-tab="false">
-        <entry file="mock:///topics_test">
+      <file leaf-file-name="viz.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/viz.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="19" selection-start="268" selection-end="268" vertical-scroll-proportion="-6.724138">
+            <state line="86" column="64" selection-start="2400" selection-end="2400" vertical-scroll-proportion="0.6415441">
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="load_topics.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/load_topics.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="61" column="34" selection-start="2494" selection-end="2494" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="convert_to_topics.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/convert_to_topics.py">
+      <file leaf-file-name="convert_to_svm.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/convert_to_svm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="73" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.75">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.sql" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data/cnn/data/out-100/test.sql">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="21" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
+            <state line="117" column="19" selection-start="3060" selection-end="3082" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -132,7 +133,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/viz/cnn_visualisation.html" />
         <option value="$PROJECT_DIR$/viz/js/datemagic.js" />
         <option value="$PROJECT_DIR$/viz/data/topics.json" />
         <option value="$PROJECT_DIR$/viz/css/viz.css" />
@@ -148,6 +148,7 @@
         <option value="$PROJECT_DIR$/data/cnn/data/out-100/test.sql" />
         <option value="/topics_test" />
         <option value="$PROJECT_DIR$/load_topics.py" />
+        <option value="$PROJECT_DIR$/viz.py" />
       </list>
     </option>
   </component>
@@ -233,6 +234,20 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Cnn_analysis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -295,20 +310,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cnn_analysis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Cnn_analysis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -324,9 +325,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -348,7 +349,7 @@
       <recent name="$PROJECT_DIR$/viz/js" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.load_topics">
+  <component name="RunManager" selected="Python.viz">
     <configuration default="false" name="Default" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console" temporary="true">
       <option name="VM_PARAMETERS" value="" />
       <option name="USER_CFG_CLASS" />
@@ -363,6 +364,19 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="RakeTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
         <option name="RakeTask" enabled="false" />
       </method>
@@ -389,19 +403,6 @@
         <option name="RakeTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="RakeTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -419,25 +420,6 @@
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="RakeTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -472,6 +454,25 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="RakeTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -525,18 +526,6 @@
         <option name="RakeTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-        <option name="RakeTask" enabled="false" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -560,6 +549,18 @@
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="RakeTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
         <option name="Maven.BeforeRunTask" enabled="false" />
         <option name="RakeTask" enabled="false" />
       </method>
@@ -628,7 +629,7 @@
       <module name="Cnn_analysis" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/load_topics.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="PARAMETERS" value="-c" />
       <option name="MULTIPROCESS" value="false" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
@@ -656,12 +657,31 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="5">
+    <configuration default="false" name="viz" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/bin/python2.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <module name="Cnn_analysis" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/viz.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="MULTIPROCESS" value="false" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.to_json" />
       <item index="1" class="java.lang.String" itemvalue="Python.to_topics" />
       <item index="2" class="java.lang.String" itemvalue="Python.load_topics" />
       <item index="3" class="java.lang.String" itemvalue="Python.convert_to_svm" />
-      <item index="4" class="java.lang.String" itemvalue="Query Language Console.Default" />
+      <item index="4" class="java.lang.String" itemvalue="Python.viz" />
+      <item index="5" class="java.lang.String" itemvalue="Query Language Console.Default" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -764,10 +784,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="0" width="1922" height="961" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2536946" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36698717" sideWeight="0.7463054" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36698717" sideWeight="0.7278325" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881773" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -782,11 +801,12 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16559829" sideWeight="0.7463054" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27093595" sideWeight="0.80662394" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881773" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16559829" sideWeight="0.70197046" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29802954" sideWeight="0.80662394" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38324872" sideWeight="0.18963675" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32881773" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2536946" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -909,34 +929,9 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cluster.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="28" selection-start="483" selection-end="483" vertical-scroll-proportion="0.2522639" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build_matrix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="66" column="41" selection-start="2265" selection-end="2265" vertical-scroll-proportion="1.2216288" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stopwords.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="752" column="44" selection-start="5321" selection-end="5321" vertical-scroll-proportion="2.985294" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/format_spark.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="154" column="75" selection-start="4657" selection-end="4657" vertical-scroll-proportion="-0.30347595" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/convert_to_json.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="41" selection-start="1185" selection-end="1185" vertical-scroll-proportion="0.7251908" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/convert_to_svm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="20" selection-start="1519" selection-end="1519" vertical-scroll-proportion="-0.96564883" />
       </provider>
     </entry>
     <entry file="dbDummy://dbElement:/cnn_analysis7d361d78/b4fd2138-9006-478a-a436-b8fdacc5f9b3/..model">
@@ -946,29 +941,65 @@
     </entry>
     <entry file="file://$USER_HOME$/.aws/src/tqdm/tqdm/_tqdm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="4" selection-start="3308" selection-end="3308" vertical-scroll-proportion="-0.06537102">
-          <folding />
-        </state>
+        <state line="109" column="4" selection-start="3308" selection-end="3308" vertical-scroll-proportion="-0.06537102" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/load_topics.py">
+    <entry file="file://$PROJECT_DIR$/build_matrix.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="342" selection-end="342" vertical-scroll-proportion="0.1590106">
-          <folding />
-        </state>
+        <state line="66" column="41" selection-start="2265" selection-end="2265" vertical-scroll-proportion="1.5291005" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cluster.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="28" selection-start="483" selection-end="483" vertical-scroll-proportion="0.34391534" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/format_spark.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="154" column="75" selection-start="4657" selection-end="4657" vertical-scroll-proportion="4.021164" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/cnn/data/out-100/test.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="21" selection-start="225" selection-end="225" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="6" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/convert_to_topics.py">
+    <entry file="file://$PROJECT_DIR$/convert_to_json.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="73" selection-start="1157" selection-end="1157" vertical-scroll-proportion="0.75">
-          <folding />
+        <state line="40" column="41" selection-start="1185" selection-end="1185" vertical-scroll-proportion="-0.42477876" />
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/sklearn/naive_bayes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="749" column="13" selection-start="27331" selection-end="27331" vertical-scroll-proportion="0.35368958" />
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/matplotlib/axes/_axes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="551" column="32" selection-start="20790" selection-end="20790" vertical-scroll-proportion="-1.7937385" />
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/dist-packages/matplotlib/pyplot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3566" column="35" selection-start="115660" selection-end="115660" vertical-scroll-proportion="0.36095765" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/load_topics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="34" selection-start="2494" selection-end="2494" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/convert_to_svm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="19" selection-start="3060" selection-end="3082" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/viz.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="86" column="64" selection-start="2400" selection-end="2400" vertical-scroll-proportion="0.6415441">
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
