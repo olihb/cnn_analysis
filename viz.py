@@ -5,6 +5,7 @@ from tqdm import *
 import numpy as np
 import sys
 import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure, show
 
 from sklearn import datasets
 from sklearn.decomposition import PCA
@@ -77,17 +78,23 @@ def main(argv):
     # PCA
     #pca = PCA(n_components=2)
     #X_r = pca.fit(matrix).transform(matrix)
-    #plt.scatter(X_r[:, 0], X_r[:, 1], c=topics)
-    #plt.show()
 
+    # T-SNE
     model = TSNE(n_components=2, random_state=0, verbose=1)
     X_r = model.fit_transform(matrix)
-    plt.scatter(X_r[:, 0], X_r[:, 1], c=topics)
-    for i in range(len(topics)):
-        plt.text(X_r[i,0],X_r[i,1],s=words[i],fontdict={'size':9})
 
-    plt.show()
+    def onpick3(event):
+        ind = event.ind
+        print "-----"
+        for i in ind:
 
+            print words[i]+" : "+str(topics[i])
+
+    fig = figure()
+    ax1 = fig.add_subplot(111)
+    col = ax1.scatter(X_r[:, 0], X_r[:, 1], c=topics, picker=True)
+    fig.canvas.mpl_connect('pick_event', onpick3)
+    show()
 
 if __name__ == "__main__":
     main(sys.argv[1:])

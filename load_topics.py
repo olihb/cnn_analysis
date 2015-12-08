@@ -56,10 +56,21 @@ def load_model(cur, filename, table):
 
 def dump_to_csv(cur, output_filename, output_filename_dict):
     print 'querying...'
-    cur.execute(""" select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
+    sql_limit = """   select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
+                from model m
+                join dictionary d on m.word_id=d.id
+                where d.id in (
+                    select word_id
                     from model m
                     join dictionary d on m.word_id=d.id
-                    where d.occ>20000;""")
+                    where (cast(m.occ as real)/cast(d.occ as real))>0.25 and d.occ>1000)"""
+
+    sql = """   select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
+                    from model m
+                    join dictionary d on m.word_id=d.id
+                    where d.occ>20000;"""
+
+    cur.execute(sql_limit)
     rows = cur.fetchall()
 
     print 'output to csv'

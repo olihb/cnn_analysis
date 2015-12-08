@@ -10,6 +10,7 @@
         <url>file://$USER_HOME$/Documents/xerial-sqlite-license.txt</url>
       </library>
     </libraries>
+    <table name="dates" schema="" catalog="" type="TABLE" />
     <table name="dictionary" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="word" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
