@@ -21,12 +21,17 @@ def initialize_tables(cur):
     cur.execute("drop table if exists model")
     cur.execute("drop table if exists document")
     cur.execute("drop table if exists dates")
+    cur.execute("drop table if exists word_matrix")
+    cur.execute("drop table if exists computed_viz")
 
     # create tables
     cur.execute("create table dictionary(id int, word text, occ int)")
     cur.execute("create table model(word_id int, topic_id int, occ int)")
     cur.execute("create table document(id int, topic int, occ int)")
     cur.execute("create table dates(id int, stamp date, url text)")
+    cur.execute("create table word_matrix(id text, word_index int, topic_id int, similarity real)")
+    cur.execute("create table word_matrix_words(id text, word_index int, word_id int, word text)")
+    cur.execute("create table computed_viz(id text, algo text, word_id, x real, y real, topic int)")
 
 def load_dictionary(cur, filename):
     print "load dictionary"
@@ -54,45 +59,48 @@ def load_model(cur, filename, table):
 
     cur.executemany("insert into "+table+" values (?,?,?)", lst)
 
-def dump_to_csv(cur, output_filename, output_filename_dict):
+def dump_to_db(cur, output_filename, output_filename_dict, topic_threshold, occ_threshold):
+    settings_name = "topic_{topic}_{occ}".format(topic=str(topic_threshold),occ=str(occ_threshold))
+
     print 'querying...'
-    sql_limit = """   select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
+    sql_limit = """
+                select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
                 from model m
                 join dictionary d on m.word_id=d.id
                 where d.id in (
                     select word_id
                     from model m
                     join dictionary d on m.word_id=d.id
-                    where (cast(m.occ as real)/cast(d.occ as real))>0.25 and d.occ>1000)"""
-
-    sql = """   select m.word_id, d.word, m.topic_id, cast(m.occ as real)/cast(d.occ as real) mm
-                    from model m
-                    join dictionary d on m.word_id=d.id
-                    where d.occ>20000;"""
+                    where (cast(m.occ as real)/cast(d.occ as real))>{topic} and d.occ>{occ})
+                """.format(topic=str(topic_threshold),occ=str(occ_threshold))
 
     cur.execute(sql_limit)
     rows = cur.fetchall()
 
-    print 'output to csv'
+    print "delete stale data"
+    cur.execute("delete from word_matrix where id=?", (settings_name,))
+    cur.execute("delete from word_matrix_words where id=?", (settings_name,))
+
+    print 'output to db'
     words_dict = dict()
+    words_id_dict = dict()
     words_dict_index = 0
-    with open(output_filename, 'w') as csv_file:
-        csv_file.write('word_index,topic,sim\n')
-        for row in tqdm(rows, leave=True):
-            word = row[1]
-            topic = row[2]
-            sim = row[3]
-            if word not in words_dict:
-                words_dict[word]=words_dict_index
-                words_dict_index+=1
-            index = words_dict[word]
-            csv_file.write(str(index)+','+str(topic)+','+str(sim)+'\n')
+
+    for row in tqdm(rows, leave=True):
+        word_id = row[0]
+        word = row[1]
+        topic = row[2]
+        sim = row[3]
+        if word not in words_dict:
+            words_dict[word]=words_dict_index
+            words_dict_index+=1
+            words_id_dict[word]=word_id
+        index = words_dict[word]
+        cur.execute("insert into word_matrix values (?,?,?,?)",(settings_name,index,topic,sim))
 
     print 'output to dict'
-    with open(output_filename_dict, 'w') as dict_file:
-        dict_file.write('word_index,word\n')
-        for word in tqdm(words_dict.keys(), leave=True):
-            dict_file.write(str(words_dict[word])+','+word+'\n')
+    for word in tqdm(words_dict.keys(), leave=True):
+        cur.execute("insert into word_matrix_words values (?,?,?,?)",(settings_name, words_dict[word], words_id_dict[word], word))
 
 
 def main(argv):
@@ -130,7 +138,8 @@ def main(argv):
                 print "dynamo"
 
             elif opt == '-c':
-                dump_to_csv(cur, output_file_csv, output_file_csv_dict)
+                dump_to_db(cur, output_file_csv, output_file_csv_dict, 0.25, 1000)
+                con.commit()
 
 
     except lite.Error, e:
