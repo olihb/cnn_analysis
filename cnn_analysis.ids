@@ -11,7 +11,11 @@
       </library>
     </libraries>
     <table name="computed_viz" schema="" catalog="" type="TABLE" />
-    <table name="dates" schema="" catalog="" type="TABLE" />
+    <table name="dates" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <column name="stamp" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="url" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+    </table>
     <table name="dictionary" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="word" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />

@@ -84,7 +84,6 @@ def main():
             output['dates'] = list(dates)
             output['occurrences_size'] = occurrences_by_words[word]
 
-            print output
             batch.put_item(data=output)
 
 if __name__ == "__main__":

@@ -1,8 +1,9 @@
 
 // global vars
 var chart, input;
-var dynamodb, dataDict = {};
+var dynamodb
 var week = false;
+var topic = false;
 
 // call on loading
 $(document).ready(function () {
@@ -129,9 +130,13 @@ function week_button_callback() {
     // update week global state
     week = $("#toggle_week").is(':checked');
 
-    // get list and reload
-    tag_list = jQuery(".tm-input").tagsManager('tags');
-    console.log(tag_list)
+    tag_list = [];
+    if (topic) {
+        tag_list = $(".chosen-select").val()
+    } else {
+        tag_list = jQuery(".tm-input").tagsManager('tags');
+    }
+
     while (chart.series.length > 0)
         chart.series[0].remove(true);
 
@@ -146,6 +151,7 @@ function initializeInterface(topics) {
     if (topics) {
         // initialize topics
 
+        topic=true;
         $("#input_tags").hide();
         select_width = $("#container_input").width();
         $("#input_topics").css("width", select_width * 0.75);
@@ -219,9 +225,10 @@ function initializeInterface(topics) {
     });
     chart = $('.viz-chart').highcharts();
     chart.showLoading("Type in a word in the input field at the top of the screen to visualize its trend")
+
+    // initialize week button
+    $('#toggle_week').click(function () {
+        week_button_callback();
+    });
 }
 
-// initialize week button
-$('#toggle_week').click(function () {
-    week_button_callback();
-});

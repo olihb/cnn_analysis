@@ -103,7 +103,7 @@ def main(argv):
         # T-SNE
         t_sne = TSNE(n_components=2, random_state=0, verbose=1)
         X_r = t_sne.fit_transform(matrix)
-        save_transformation(cur, config_name, "tse", X_r, topics)
+        save_transformation(cur, config_name, "tsne", X_r, topics)
         con.commit()
 
         #def onpick3(event):

@@ -1,27 +1,502 @@
 [
     {
+        "id":0,
+        "key":"key_topic_0",
+        "name":"think, know, people, going, well, mean, right, want, way, look"
+    },
+    {
         "id":1,
-        "name":"topic 1",
-        "key":"key_topic_25_1"
+        "key":"key_topic_1",
+        "name":"players, now, team, football, know, nfl, coach, going, right, player"
     },
     {
         "id":2,
-        "name":"topic 2",
-        "key":"key_topic_25_2"
+        "key":"key_topic_2",
+        "name":"game, right, team, going, now, know, super, last, new, play"
     },
     {
         "id":3,
-        "name":"topic 3",
-        "key":"key_topic_25_3"
+        "key":"key_topic_3",
+        "name":"bush, president, kerry, john, percent, campaign, poll, now, edwards, george"
     },
     {
         "id":4,
-        "name":"topic 4",
-        "key":"key_topic_25_4"
+        "key":"key_topic_4",
+        "name":"snow, going, weather, right, see, now, here, rain, today, new"
     },
     {
         "id":5,
-        "name":"topic 5",
-        "key":"key_topic_25_5"
+        "key":"key_topic_5",
+        "name":"plane, flight, airport, air, airlines, pilot, passengers, now, aircraft, airline"
+    },
+    {
+        "id":6,
+        "key":"key_topic_6",
+        "name":"ship, now, boat, coast, navy, water, sea, crew, right, cruise"
+    },
+    {
+        "id":7,
+        "key":"key_topic_7",
+        "name":"cuba, now, here, miami, castro, cuban, back, united, states, guantanamo"
+    },
+    {
+        "id":8,
+        "key":"key_topic_8",
+        "name":"economy, going, money, now, financial, banks, right, street, bank, wall"
+    },
+    {
+        "id":9,
+        "key":"key_topic_9",
+        "name":"united, states, world, war, think, people, president, countries, saudi, american"
+    },
+    {
+        "id":10,
+        "key":"key_topic_10",
+        "name":"security, new, homeland, threat, department, now, government, people, attack, well"
+    },
+    {
+        "id":11,
+        "key":"key_topic_11",
+        "name":"iran, nuclear, weapons, united, iraq, now, council, security, iranian, president"
+    },
+    {
+        "id":12,
+        "key":"key_topic_12",
+        "name":"yes, ok, right, know, martin, george, going, call, zimmerman, want"
+    },
+    {
+        "id":13,
+        "key":"key_topic_13",
+        "name":"people, now, protesters, egypt, government, protests, police, here, president, streets"
+    },
+    {
+        "id":14,
+        "key":"key_topic_14",
+        "name":"music, know, song, yes, love, new, great, people, well, show"
+    },
+    {
+        "id":15,
+        "key":"key_topic_15",
+        "name":"police, city, gun, mayor, new, york, people, here, guns, officers"
+    },
+    {
+        "id":16,
+        "key":"key_topic_16",
+        "name":"police, officer, shot, officers, man, now, shooting, video, suspect, gun"
+    },
+    {
+        "id":17,
+        "key":"key_topic_17",
+        "name":"oil, gas, prices, energy, price, now, going, percent, fuel, gallon"
+    },
+    {
+        "id":18,
+        "key":"key_topic_18",
+        "name":"money, people, right, credit, going, know, home, now, pay, want"
+    },
+    {
+        "id":19,
+        "key":"key_topic_19",
+        "name":"movie, film, hollywood, know, movies, actor, best, show, well, great"
+    },
+    {
+        "id":20,
+        "key":"key_topic_20",
+        "name":"know, show, yes, think, right, going, well, look, mean, see"
+    },
+    {
+        "id":21,
+        "key":"key_topic_21",
+        "name":"think, well, know, going, people, time, need, want, question, sure"
+    },
+    {
+        "id":22,
+        "key":"key_topic_22",
+        "name":"iraq, war, troops, president, military, general, now, going, secretary, pentagon"
+    },
+    {
+        "id":23,
+        "key":"key_topic_23",
+        "name":"house, going, deal, president, now, debt, republicans, government, right, congress"
+    },
+    {
+        "id":24,
+        "key":"key_topic_24",
+        "name":"intelligence, president, cia, administration, national, war, report, bush, commission, 9/11"
+    },
+    {
+        "id":25,
+        "key":"key_topic_25",
+        "name":"state, vote, voters, here, states, percent, going, now, new, race"
+    },
+    {
+        "id":26,
+        "key":"key_topic_26",
+        "name":"president, years, kennedy, reagan, king, history, first, time, ronald, people"
+    },
+    {
+        "id":27,
+        "key":"key_topic_27",
+        "name":"jobs, percent, job, people, economy, 000, year, now, unemployment, numbers"
+    },
+    {
+        "id":28,
+        "key":"key_topic_28",
+        "name":"investigation, now, department, attorney, report, general, fbi, story, documents, allegations"
+    },
+    {
+        "id":29,
+        "key":"key_topic_29",
+        "name":"law, state, rights, right, legal, federal, laws, well, case, government"
+    },
+    {
+        "id":30,
+        "key":"key_topic_30",
+        "name":"fire, california, now, san, here, firefighters, los, angeles, homes, right"
+    },
+    {
+        "id":31,
+        "key":"key_topic_31",
+        "name":"florida, election, vote, state, gore, now, bush, here, votes, governor"
+    },
+    {
+        "id":32,
+        "key":"key_topic_32",
+        "name":"water, here, people, now, river, city, new, power, bridge, right"
+    },
+    {
+        "id":33,
+        "key":"key_topic_33",
+        "name":"now, release, released, held, news, hostage, video, cnn, government, american"
+    },
+    {
+        "id":34,
+        "key":"key_topic_34",
+        "name":"michael, jackson, know, drugs, now, drug, going, death, murray, time"
+    },
+    {
+        "id":35,
+        "key":"key_topic_35",
+        "name":"space, now, shuttle, nasa, here, earth, see, right, miles, years"
+    },
+    {
+        "id":36,
+        "key":"key_topic_36",
+        "name":"school, kids, students, schools, college, high, children, education, parents, student"
+    },
+    {
+        "id":37,
+        "key":"key_topic_37",
+        "name":"romney, mitt, president, obama, campaign, going, republican, paul, governor, right"
+    },
+    {
+        "id":38,
+        "key":"key_topic_38",
+        "name":"morning, new, carol, hour, cnn, live, now, minutes, right, news"
+    },
+    {
+        "id":39,
+        "key":"key_topic_39",
+        "name":"north, china, korea, wolf, chinese, jack, south, situation, room, now"
+    },
+    {
+        "id":40,
+        "key":"key_topic_40",
+        "name":"new, orleans, oil, now, katrina, people, going, here, gulf, well"
+    },
+    {
+        "id":41,
+        "key":"key_topic_41",
+        "name":"women, men, marriage, gay, think, woman, know, people, married, sex"
+    },
+    {
+        "id":42,
+        "key":"key_topic_42",
+        "name":"tonight, showbiz, now, new, news, show, right, today, hollywood, oprah"
+    },
+    {
+        "id":43,
+        "key":"key_topic_43",
+        "name":"israel, palestinian, peace, minister, prime, israeli, palestinians, now, arafat, president"
+    },
+    {
+        "id":44,
+        "key":"key_topic_44",
+        "name":"russia, russian, ukraine, putin, now, president, moscow, russians, here, vladimir"
+    },
+    {
+        "id":45,
+        "key":"key_topic_45",
+        "name":"tax, money, billion, going, taxes, cut, spending, budget, people, cuts"
+    },
+    {
+        "id":46,
+        "key":"key_topic_46",
+        "name":"web, internet, site, phone, online, now, people, facebook, new, computer"
+    },
+    {
+        "id":47,
+        "key":"key_topic_47",
+        "name":"food, here, yes, know, eat, right, going, people, little, want"
+    },
+    {
+        "id":48,
+        "key":"key_topic_48",
+        "name":"tonight, anderson, larry, cnn, 00, night, tomorrow, king, thank, live"
+    },
+    {
+        "id":49,
+        "key":"key_topic_49",
+        "name":"people, now, here, help, earthquake, still, food, 000, haiti, water"
+    },
+    {
+        "id":50,
+        "key":"key_topic_50",
+        "name":"car, train, cars, driver, bus, driving, road, right, truck, vehicle"
+    },
+    {
+        "id":51,
+        "key":"key_topic_51",
+        "name":"tiger, know, now, golf, going, well, woods, right, back, time"
+    },
+    {
+        "id":52,
+        "key":"key_topic_52",
+        "name":"military, army, soldiers, pentagon, war, now, troops, air, forces, marines"
+    },
+    {
+        "id":53,
+        "key":"key_topic_53",
+        "name":"people, weight, well, drug, now, drugs, know, heart, dr, marijuana"
+    },
+    {
+        "id":54,
+        "key":"key_topic_54",
+        "name":"company, business, companies, industry, money, million, now, new, billion, big"
+    },
+    {
+        "id":55,
+        "key":"key_topic_55",
+        "name":"know, think, people, going, yes, right, child, well, want, children"
+    },
+    {
+        "id":56,
+        "key":"key_topic_56",
+        "name":"search, now, plane, know, flight, area, right, here, going, data"
+    },
+    {
+        "id":57,
+        "key":"key_topic_57",
+        "name":"democrats, republicans, party, president, going, house, republican, senate, bill, vote"
+    },
+    {
+        "id":58,
+        "key":"key_topic_58",
+        "name":"people, now, health, flu, ebola, virus, disease, know, dr, here"
+    },
+    {
+        "id":59,
+        "key":"key_topic_59",
+        "name":"black, people, think, white, know, race, want, saying, well, right"
+    },
+    {
+        "id":60,
+        "key":"key_topic_60",
+        "name":"afghanistan, taliban, pakistan, afghan, now, here, india, forces, government, pakistani"
+    },
+    {
+        "id":61,
+        "key":"key_topic_61",
+        "name":"police, found, missing, know, now, home, case, family, search, girl"
+    },
+    {
+        "id":62,
+        "key":"key_topic_62",
+        "name":"people, shooting, killed, university, now, school, virginia, police, victims, here"
+    },
+    {
+        "id":63,
+        "key":"key_topic_63",
+        "name":"al, qaeda, bin, laden, osama, attacks, now, attack, terrorist, intelligence"
+    },
+    {
+        "id":64,
+        "key":"key_topic_64",
+        "name":"know, casey, nancy, anthony, going, right, defense, well, now, caylee"
+    },
+    {
+        "id":65,
+        "key":"key_topic_65",
+        "name":"court, supreme, judge, justice, case, decision, law, now, right, going"
+    },
+    {
+        "id":66,
+        "key":"key_topic_66",
+        "name":"now, anthrax, food, found, test, safety, testing, well, mail, people"
+    },
+    {
+        "id":67,
+        "key":"key_topic_67",
+        "name":"church, pope, catholic, john, paul, vatican, people, here, now, st"
+    },
+    {
+        "id":68,
+        "key":"key_topic_68",
+        "name":"know, going, think, people, well, right, mean, yes, want, see"
+    },
+    {
+        "id":69,
+        "key":"key_topic_69",
+        "name":"europe, minister, british, london, now, prime, european, france, french, world"
+    },
+    {
+        "id":70,
+        "key":"key_topic_70",
+        "name":"africa, world, south, people, international, country, african, government, now, cnn"
+    },
+    {
+        "id":71,
+        "key":"key_topic_71",
+        "name":"family, children, mother, father, child, son, know, kids, home, parents"
+    },
+    {
+        "id":72,
+        "key":"key_topic_72",
+        "name":"president, house, white, bush, obama, administration, today, now, here, vice"
+    },
+    {
+        "id":73,
+        "key":"key_topic_73",
+        "name":"world, now, olympic, games, team, gold, here, olympics, cup, well"
+    },
+    {
+        "id":74,
+        "key":"key_topic_74",
+        "name":"money, million, 000, vegas, martha, stewart, dollars, now, las, new"
+    },
+    {
+        "id":75,
+        "key":"key_topic_75",
+        "name":"trump, donald, think, going, know, clinton, right, now, debate, hillary"
+    },
+    {
+        "id":76,
+        "key":"key_topic_76",
+        "name":"percent, market, stock, today, now, stocks, dow, year, markets, street"
+    },
+    {
+        "id":77,
+        "key":"key_topic_77",
+        "name":"iraq, iraqi, baghdad, saddam, now, hussein, iraqis, forces, killed, people"
+    },
+    {
+        "id":78,
+        "key":"key_topic_78",
+        "name":"obama, clinton, mccain, barack, john, campaign, hillary, senator, president, going"
+    },
+    {
+        "id":79,
+        "key":"key_topic_79",
+        "name":"care, health, insurance, people, going, plan, reform, now, bill, right"
+    },
+    {
+        "id":80,
+        "key":"key_topic_80",
+        "name":"storm, now, here, right, hurricane, going, see, winds, tornado, miles"
+    },
+    {
+        "id":81,
+        "key":"key_topic_81",
+        "name":"border, immigration, illegal, mexico, lou, country, here, states, immigrants, people"
+    },
+    {
+        "id":82,
+        "key":"key_topic_82",
+        "name":"people, america, country, work, american, need, world, president, want, great"
+    },
+    {
+        "id":83,
+        "key":"key_topic_83",
+        "name":"prison, years, jail, now, sex, crime, convicted, man, rape, victims"
+    },
+    {
+        "id":84,
+        "key":"key_topic_84",
+        "name":"know, didn, yes, think, mean, going, went, time, well, people"
+    },
+    {
+        "id":85,
+        "key":"key_topic_85",
+        "name":"senator, senate, committee, house, congress, congressman, hill, capitol, republican, now"
+    },
+    {
+        "id":86,
+        "key":"key_topic_86",
+        "name":"case, evidence, think, defense, going, know, jury, trial, well, attorney"
+    },
+    {
+        "id":87,
+        "key":"key_topic_87",
+        "name":"cancer, research, now, years, dr, people, breast, life, well, women"
+    },
+    {
+        "id":88,
+        "key":"key_topic_88",
+        "name":"syria, isis, now, libya, syrian, gadhafi, forces, government, military, turkey"
+    },
+    {
+        "id":89,
+        "key":"key_topic_89",
+        "name":"hospital, medical, doctors, dr, surgery, doctor, now, condition, patients, heart"
+    },
+    {
+        "id":90,
+        "key":"key_topic_90",
+        "name":"now, police, attack, bomb, fbi, boston, here, people, authorities, terror"
+    },
+    {
+        "id":91,
+        "key":"key_topic_91",
+        "name":"here, people, right, see, now, know, going, building, area, saw"
+    },
+    {
+        "id":92,
+        "key":"key_topic_92",
+        "name":"israel, israeli, gaza, now, lebanon, hezbollah, hamas, killed, here, people"
+    },
+    {
+        "id":93,
+        "key":"key_topic_93",
+        "name":"right, here, going, cnn, now, see, want, know, thank, well"
+    },
+    {
+        "id":94,
+        "key":"key_topic_94",
+        "name":"governor, bush, new, republican, party, think, campaign, bill, political, gore"
+    },
+    {
+        "id":95,
+        "key":"key_topic_95",
+        "name":"dog, right, yes, little, christmas, see, here, look, know, dogs"
+    },
+    {
+        "id":96,
+        "key":"key_topic_96",
+        "name":"trial, case, judge, death, court, jury, guilty, murder, now, today"
+    },
+    {
+        "id":97,
+        "key":"key_topic_97",
+        "name":"god, people, faith, religious, religion, church, christian, muslim, believe, jesus"
+    },
+    {
+        "id":98,
+        "key":"key_topic_98",
+        "name":"day, people, family, thank, here, families, today, world, life, service"
+    },
+    {
+        "id":99,
+        "key":"key_topic_99",
+        "name":"news, book, media, story, think, new, show, well, times, know"
     }
 ]
