@@ -10,26 +10,37 @@
         <url>file://$USER_HOME$/Documents/xerial-sqlite-license.txt</url>
       </library>
     </libraries>
-    <table name="computed_viz" schema="" catalog="" type="TABLE" />
+    <table name="computed_viz" schema="" catalog="" type="TABLE">
+      <column name="id" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="algo" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="word_index" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <column name="x" sqlType="REAL" length="2000000000" precision="10" nullable="true" jdbcType="6" />
+      <column name="y" sqlType="REAL" length="2000000000" precision="10" nullable="true" jdbcType="6" />
+      <column name="topic" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+    </table>
     <table name="dates" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="stamp" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12" />
       <column name="url" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <index name="idx2" unique="false" columns="id" />
     </table>
     <table name="dictionary" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="word" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
       <column name="occ" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <index name="idx4" unique="false" columns="id" />
     </table>
     <table name="document" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="topic" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="occ" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <index name="idx1" unique="false" columns="id" />
     </table>
     <table name="model" schema="" catalog="" type="TABLE">
       <column name="word_id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="topic_id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="occ" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <index name="idx3" unique="false" columns="topic_id" />
     </table>
     <table name="word_matrix" schema="" catalog="" type="TABLE">
       <column name="id" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
@@ -42,6 +53,11 @@
       <column name="word_index" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="word_id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
       <column name="word" sqlType="TEXT" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+    </table>
+    <table name="words_stats" schema="" catalog="" type="TABLE">
+      <column name="stamp" sqlType="DATE" length="2000000000" precision="10" nullable="true" jdbcType="12" />
+      <column name="word_id" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
+      <column name="nb" sqlType="INT" length="2000000000" precision="10" nullable="true" jdbcType="4" />
     </table>
   </data-source>
 </component>

@@ -39,7 +39,7 @@ def initialize_tables(cur):
     cur.execute("create table dates(id int, stamp date, url text)")
     cur.execute("create table word_matrix(id text, word_index int, topic_id int, similarity real)")
     cur.execute("create table word_matrix_words(id text, word_index int, word_id int, word text)")
-    cur.execute("create table computed_viz(id text, algo text, word_id, x real, y real, topic int)")
+    cur.execute("create table computed_viz(id text, algo text, word_index int, x real, y real, topic int)")
 
 def load_dictionary(cur, filename):
     print "load dictionary"
@@ -231,8 +231,12 @@ def main(argv):
                 con.commit()
 
                 load_dictionary(cur, dictionary_file)
+                cur.execute("CREATE INDEX idx4 ON dictionary(id)")
+                con.commit()
+
 
                 load_model(cur, model_file, "model")
+                cur.execute("CREATE INDEX idx3 ON model(topic_id)")
                 con.commit()
 
                 load_model(cur, doc_file, "document")

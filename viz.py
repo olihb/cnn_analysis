@@ -1,4 +1,5 @@
 from collections import defaultdict
+import getopt
 import sqlite3 as lite
 from scipy import sparse
 from sklearn.manifold.t_sne import TSNE
@@ -74,6 +75,40 @@ def save_transformation(cur, name, algo, matrix, topics):
         lst.append((name,algo,i,x,y,c))
     cur.executemany("insert into computed_viz values (?,?,?,?,?,?)", lst)
 
+def load_and_transform(con, cur, tag):
+    # erase old data
+    cur.execute("delete from computed_viz where id = ?",(tag,))
+    con.commit()
+
+    # load/transform data structure
+    words, mtx, topics = load_data_structures(cur, tag)
+
+    # compute
+    matrix = mtx.toarray()
+
+    # PCA
+    pca = PCA(n_components=2)
+    X_r = pca.fit(matrix).transform(matrix)
+    save_transformation(cur, tag, "pca", X_r, topics)
+    con.commit()
+
+    # T-SNE
+    t_sne = TSNE(n_components=2, random_state=0, verbose=1)
+    X_r = t_sne.fit_transform(matrix)
+    save_transformation(cur, tag, "tsne", X_r, topics)
+    con.commit()
+
+def create_animation(con, cur, tag):
+    sql = """select w.word, w.word_id, v.x, v.y, v.topic, m.similarity, sum(nb) n
+  from word_matrix m
+          join word_matrix_words w on m.word_index=w.word_index
+          join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+          join words_stats ws on ws.word_id=w.word_id
+  where  algo='tsne' and ws.stamp='2001-09-11'
+  group by w.word, w.word_id, v.x, v.y, v.topic, m.similarity"""
+
+
+
 def main(argv):
 
     con = None
@@ -82,31 +117,23 @@ def main(argv):
     try:
         con = lite.connect(database)
         cur = con.cursor()
+        # arguments
+        try:
+            opts, args = getopt.getopt(argv, "la")
+        except getopt.GetoptError:
+            sys.exit(2)
 
-        # erase old data
-        cur.execute("delete from computed_viz where id = ?",(config_name,))
-        con.commit()
+        for opt, arg in opts:
+            # load tables
+            if opt == '-l':
+                load_and_transform(con, cur, config_name)
 
-        # load/transform data structure
-        words, mtx, topics = load_data_structures(cur,"topic_0.25_1000")
-
-        # compute
-        matrix = mtx.toarray()
+            # send to dynamodb
+            elif opt =='-a':
+                create_animation(con, cur, config_name)
 
 
-        # PCA
-        pca = PCA(n_components=2)
-        X_r = pca.fit(matrix).transform(matrix)
-        save_transformation(cur, config_name, "pca", X_r, topics)
-        con.commit()
-
-        # T-SNE
-        t_sne = TSNE(n_components=2, random_state=0, verbose=1)
-        X_r = t_sne.fit_transform(matrix)
-        save_transformation(cur, config_name, "tsne", X_r, topics)
-        con.commit()
-
-        #def onpick3(event):
+            #def onpick3(event):
         #    ind = event.ind
         #    print "-----"
         #    for i in ind:
