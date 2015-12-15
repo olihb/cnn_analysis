@@ -1,6 +1,14 @@
 from collections import defaultdict
+import pickle
 import getopt
 import sqlite3 as lite
+import itertools
+from operator import itemgetter
+from matplotlib import animation
+import matplotlib
+matplotlib.use("Agg")
+import math
+
 from scipy import sparse
 from sklearn.manifold.t_sne import TSNE
 from tqdm import *
@@ -17,7 +25,7 @@ from sklearn.preprocessing import scale
 # database
 database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.db"
 
-
+output_animation_prefix = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/animation/test_"
 output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic.csv"
 output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic_dict.csv"
 
@@ -98,14 +106,59 @@ def load_and_transform(con, cur, tag):
     save_transformation(cur, tag, "tsne", X_r, topics)
     con.commit()
 
-def create_animation(con, cur, tag):
-    sql = """select w.word, w.word_id, v.x, v.y, v.topic, m.similarity, sum(nb) n
-  from word_matrix m
-          join word_matrix_words w on m.word_index=w.word_index
-          join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
-          join words_stats ws on ws.word_id=w.word_id
-  where  algo='tsne' and ws.stamp='2001-09-11'
-  group by w.word, w.word_id, v.x, v.y, v.topic, m.similarity"""
+def create_animation(con, cur, tag, algo='tsne'):
+    sql = """   select strftime('%Y-%m',ws.stamp) fdate, w.word, w.word_id, v.x, v.y, v.topic, m.similarity, sum(nb) n
+                from word_matrix m
+                join word_matrix_words w on m.word_index=w.word_index
+                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+                join words_stats ws on ws.word_id=w.word_id
+                where algo='tsne' and (ws.stamp between '2001-01-01' and '2015-10-01') and v.topic not in (0,21,38,84,93,99)
+                group by fdate, w.word, w.word_id, v.x, v.y, v.topic, m.similarity
+                order by fdate"""
+
+
+    # setup chart
+
+    fig = plt.figure(figsize=[10,8])
+    scatter = plt.scatter([],[],c=[])
+    plt.xlim([-15,15])
+    plt.ylim([-15,15])
+
+
+    # get data
+    data = {}
+    list_keys = []
+    cur.execute(sql)
+    rows = cur.fetchall()
+    data_by_date = itertools.groupby(rows, key=itemgetter(0))
+    for key, items in data_by_date:
+        data[key]=list(items)
+        list_keys.append(key)
+
+
+    pickle.dump(data, open('data-a.p','wb'))
+    pickle.dump(list_keys, open('list-a.p', 'wb'))
+    data = pickle.load(open('data-a.p','rb'))
+    list_keys = pickle.load(open('list-a.p','rb'))
+
+    def init():
+        return scatter
+
+    def update_chart(i, chart):
+        key = list_keys[i]
+        current_data = data[key]
+        max_s = max(map(lambda x: x[7], current_data))
+        xy = map(lambda x: [x[3],x[4]], current_data)
+        c_list = map(lambda x: x[5], current_data)
+        s_list = map(lambda x: float(x[7])/float(max_s)*100,current_data)
+        chart.set_array(np.array(c_list))
+        chart.set_offsets(xy)
+        chart.set_sizes(np.array(s_list))
+        plt.title(key)
+        return chart,
+
+    anim = animation.FuncAnimation(fig, update_chart, init_func=init, frames=len(list_keys), fargs=(scatter,))
+    anim.save('chart.gif',  writer='imagemagick', fps=4)
 
 
 
