@@ -26,7 +26,9 @@ from sklearn.preprocessing import scale
 
 import label_position
 
-from bokeh.plotting import figure, output_file, show
+from bokeh.plotting import figure, output_file, show, ColumnDataSource
+from bokeh import palettes
+from bokeh.models import HoverTool
 
 # database
 database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.db"
@@ -183,21 +185,134 @@ def create_animation(con, cur, tag, algo='tsne'):
     #plt.show()
 
 def create_chart_scatter_bokeh(con, cur, tag, algo='tsne'):
-    # prepare some data
-    x = [1, 2, 3, 4, 5]
-    y = [6, 7, 2, 4, 5]
+
+    data = pickle.load(open('data-h.p','rb'))
+    list_keys = pickle.load(open('list-h.p','rb'))
+
+    key = list_keys[0]
+    current_data = data[key]
+
+    max_s = max(map(lambda x: x[6]*math.log10(x[7]), current_data))
+    a = 0.5
+
+    source = ColumnDataSource (
+        data = dict(
+            x= map(lambda c: c[3], current_data),
+            y= map(lambda c: c[4], current_data),
+            prob = map(lambda c: int(c[6]*100), current_data),
+            topic= map(lambda c: c[5], current_data),
+            desc= map(lambda c: c[1], current_data),
+            color = map(lambda x: palettes.Spectral11[x[5]%11], current_data),
+            s=map(lambda x: math.pow((1.0-math.pow((x[6]*math.log10(x[7]))/max_s,a)),1.0/a)*0.3, current_data)
+        )
+    )
+
+    hover = HoverTool(
+        tooltips="""
+        <div>
+            <span style="font-size: 15px; font-weight: bold;">@desc</span>
+            <span style="font-size: 12px; color: #966;">[@topic - @prob%]</span>
+        </div>
+        """
+    )
 
     # output to static HTML file
-    output_file("lines.html", title="line plot example")
+    output_file("scatter.html",)
 
     # create a new plot with a title and axis labels
-    p = figure(title="simple line example", x_axis_label='x', y_axis_label='y')
+
+    p = figure()
+    p.add_tools(hover)
 
     # add a line renderer with legend and line thickness
-    p.line(x, y, legend="Temp.", line_width=2)
+    p.circle('x','y', source=source, radius='s', color='color', fill_alpha=0.4)
 
     # show the results
     show(p)
+
+def create_chart_heatmap_bokeh(con, cur, tag, algo='tsne'):
+#    sql = """   select strftime('%Y',ws.stamp) date, v.topic, sum(nb) n
+#                from word_matrix m
+#                join word_matrix_words w on m.word_index=w.word_index
+#                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+#                join words_stats ws on ws.word_id=w.word_id
+#                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.7
+#                group by date, v.topic
+#                having sum(nb)>1000
+#                order by date, v.topic"""""
+#
+#    cur.execute(sql)
+#    rows = cur.fetchall()
+#    allo = []
+#    for rr in rows:
+#        allo.append(rr)
+#
+#
+#
+#    pickle.dump(allo, open('data-allo.p','wb'))
+    raw_data = pickle.load(open('data-allo.p','rb'))
+
+
+
+
+
+    fdate = []
+    fdates = set()
+    topic = []
+    topics = set()
+    data = []
+    color = []
+    max_topic = defaultdict(float)
+    max = 0
+
+    for row in raw_data:
+        fdate.append(row[0])
+        fdates.add(row[0])
+        topic.append(row[1])
+        topics.add(row[1])
+        data.append(float(row[2]))
+        if row[2]>max_topic[row[1]]:
+            max_topic[row[1]]=row[2]
+        if row[2]>max:
+            max=row[2]
+
+    for i in range(len(topic)):
+        t = topic[i]
+        data[i] = data[i]/max_topic[t]
+        #data[i] = data[i]/max
+
+        color_index=(int((data[i]*10-0.0000001))%10)
+        print data[i]*10
+        print color_index
+        print '=---'
+
+        color.append(palettes.RdBu10[color_index])
+
+
+
+    source = ColumnDataSource(
+        data=dict(fdate=fdate,topic=topic,data=data, color=color)
+    )
+
+    output_file("heatmap.html",)
+
+    p = figure(x_range=[str(x) for x in list(topics)], y_range=['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015'])
+    p.rect("topic","fdate", 1, 1, source=source,color='color')
+
+    hover = HoverTool(
+        tooltips=[
+            ("date", "@fdate"),
+            ("topic", "@topic"),
+            ("data", "@data"),
+        ]
+    )
+
+    p.add_tools(hover)
+
+    show(p)
+
+
+
 
 def main(argv):
 
@@ -209,7 +324,7 @@ def main(argv):
         cur = con.cursor()
         # arguments
         try:
-            opts, args = getopt.getopt(argv, "lac")
+            opts, args = getopt.getopt(argv, "lach")
         except getopt.GetoptError:
             sys.exit(2)
 
@@ -225,6 +340,8 @@ def main(argv):
             elif opt == '-c':
                 create_chart_scatter_bokeh(con, cur, config_name)
 
+            elif opt == '-h':
+                create_chart_heatmap_bokeh(con, cur, config_name)
 
             #def onpick3(event):
         #    ind = event.ind
