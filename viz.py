@@ -10,6 +10,7 @@ import matplotlib
 import math
 import random
 import collections
+import json
 
 from scipy import sparse
 from sklearn.manifold.t_sne import TSNE
@@ -36,6 +37,8 @@ database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.d
 output_animation_prefix = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/animation/test_"
 output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic.csv"
 output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic_dict.csv"
+topic_json = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.json"
+
 
 def load_data_structures(cur, config_name):
 
@@ -230,80 +233,106 @@ def create_chart_scatter_bokeh(con, cur, tag, algo='tsne'):
     # show the results
     show(p)
 
-def create_chart_heatmap_bokeh(con, cur, tag, algo='tsne'):
+def create_chart_heatmap_bokeh(con, cur, tag, topic_description, algo='tsne'):
+
+#    # load data for chart
 #    sql = """   select strftime('%Y',ws.stamp) date, v.topic, sum(nb) n
 #                from word_matrix m
 #                join word_matrix_words w on m.word_index=w.word_index
 #                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
 #                join words_stats ws on ws.word_id=w.word_id
-#                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.7
+#                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.5
 #                group by date, v.topic
-#                having sum(nb)>1000
+#                having sum(nb)>0
 #                order by date, v.topic"""""
 #
 #    cur.execute(sql)
 #    rows = cur.fetchall()
-#    allo = []
-#    for rr in rows:
-#        allo.append(rr)
+#    raw_data = []
+#    for row in rows:
+#        raw_data.append(row)
+#    pickle.dump(raw_data, open('pickles/heatmap-all-chart.p','wb'))
 #
+#    # load data for description
+#    sql = """   select strftime('%Y',ws.stamp) date, v.topic, w.word, sum(nb) n
+#                from word_matrix m
+#                join word_matrix_words w on m.word_index=w.word_index
+#                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+#                join words_stats ws on ws.word_id=w.word_id
+#                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.5
+#                group by date, v.topic, w.word
+#                having sum(nb)>0"""""
 #
-#
-#    pickle.dump(allo, open('data-allo.p','wb'))
-    raw_data = pickle.load(open('data-allo.p','rb'))
+#    cur.execute(sql)
+#    rows = cur.fetchall()
+#    raw_words = []
+#    for row in rows:
+#        raw_words.append(row)
+#    pickle.dump(raw_words, open('pickles/heatmap-all-desc.p','wb'))
 
+    # load for faster testing
+    raw_data = pickle.load(open('pickles/heatmap-all-chart.p','rb'))
+    raw_words = pickle.load(open('pickles/heatmap-all-desc.p','rb'))
 
-
-
-
-    fdate = []
-    fdates = set()
+    # setup chart
+    date = []
     topic = []
-    topics = set()
     data = []
     color = []
     max_topic = defaultdict(float)
-    max = 0
 
     for row in raw_data:
-        fdate.append(row[0])
-        fdates.add(row[0])
+        date.append(row[0])
         topic.append(row[1])
-        topics.add(row[1])
         data.append(float(row[2]))
         if row[2]>max_topic[row[1]]:
             max_topic[row[1]]=row[2]
-        if row[2]>max:
-            max=row[2]
 
     for i in range(len(topic)):
         t = topic[i]
         data[i] = data[i]/max_topic[t]
-        #data[i] = data[i]/max
+        color_index=(int((data[i]*9-0.0000001))%9)
+        color.append(list(reversed(palettes.PuBu9))[color_index])
 
-        color_index=(int((data[i]*10-0.0000001))%10)
-        print data[i]*10
-        print color_index
-        print '=---'
+    desc_raw = defaultdict(list)
+    for row in raw_words:
+        key = (row[0], row[1])
+        value = (row[2],row[3])
+        desc_raw[key].append(value)
 
-        color.append(palettes.RdBu10[color_index])
+    desc = defaultdict(str)
+    for key in desc_raw:
+        desc_raw[key].sort(reverse=True, key=lambda x: x[1])
+        word = map(lambda x:x[0], desc_raw[key])
+        desc[key]=", ".join(word[:5])
 
-
+    descriptions = []
+    for row in raw_data:
+        key = (row[0], row[1])
+        descriptions.append(desc[key])
 
     source = ColumnDataSource(
-        data=dict(fdate=fdate,topic=topic,data=data, color=color)
+        data=dict(date=date,topic=topic,data=data, color=color, description=descriptions)
     )
 
-    output_file("heatmap.html",)
+    y_range=list(set(date))
+    y_range.sort(reverse=True)
+    x_range=[str(x+1) for x in range(100)]
 
-    p = figure(x_range=[str(x) for x in list(topics)], y_range=['2000','2001','2002','2003','2004','2005','2006','2007','2008','2009','2010','2011','2012','2013','2014','2015'])
-    p.rect("topic","fdate", 1, 1, source=source,color='color')
+
+    output_file("viz/charts/heatmap.html",)
+    p = figure(plot_width=1200, plot_height=500, x_range=x_range, y_range=y_range)
+    p.rect("topic","date", 1, 1, source=source,color='color',alpha=0.8, line_color=None)
+    p.grid.grid_line_color = None
+    p.axis.axis_line_color = None
+    p.axis.major_tick_line_color = None
+    p.axis.major_label_text_font_size = "5pt"
 
     hover = HoverTool(
         tooltips=[
-            ("date", "@fdate"),
+            ("date", "@date"),
             ("topic", "@topic"),
-            ("data", "@data"),
+            ("keywords", "@description"),
         ]
     )
 
@@ -341,7 +370,7 @@ def main(argv):
                 create_chart_scatter_bokeh(con, cur, config_name)
 
             elif opt == '-h':
-                create_chart_heatmap_bokeh(con, cur, config_name)
+                create_chart_heatmap_bokeh(con, cur, config_name, topic_json)
 
             #def onpick3(event):
         #    ind = event.ind
