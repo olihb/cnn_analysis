@@ -8,19 +8,19 @@ import time
 import json
 
 # files
-dictionary_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/cnn.word_id.dict"
-model_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/server_0_table_0.model"
-doc_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/doc_topic.0"
+dictionary_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/cnn.word_id.dict"
+model_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/server_0_table_0.model"
+doc_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/doc_topic.0"
 date_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/cnn.date"
 
 # json output file
-output_topic_description_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.json"
+output_topic_description_file = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/topics.json"
 
 # database
-database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.db"
+database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/topics.db"
 
-output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic.csv"
-output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic_dict.csv"
+output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/matrix_topic.csv"
+output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/matrix_topic_dict.csv"
 
 def initialize_tables(cur):
     # drop tables

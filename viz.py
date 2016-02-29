@@ -32,12 +32,12 @@ from bokeh import palettes
 from bokeh.models import HoverTool
 
 # database
-database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.db"
+database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/topics.db"
 
-output_animation_prefix = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/animation/test_"
-output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic.csv"
-output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/matrix_topic_dict.csv"
-topic_json = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.json"
+output_animation_prefix = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/animation/test_"
+output_file_csv = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/matrix_topic.csv"
+output_file_csv_dict = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/matrix_topic_dict.csv"
+topic_json = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/topics.json"
 
 
 def load_data_structures(cur, config_name):
@@ -123,15 +123,15 @@ def create_animation(con, cur, tag, algo='tsne'):
                 join word_matrix_words w on m.word_index=w.word_index
                 join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
                 join words_stats ws on ws.word_id=w.word_id
-                where algo='tsne' and (ws.stamp between '2001-01-01' and '2015-10-01') and v.topic not in (0,21,38,84,93,99)
+                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01')
                 group by fdate, w.word, w.word_id, v.x, v.y, v.topic, m.similarity
                 having sum(nb)>0
                 order by fdate"""
 
-
+     #strftime('%Y-%m',ws.stamp)
     # setup chart
     top_nb_label = 50
-    x_size = 15
+    x_size = 10
     fig = plt.figure(figsize=[x_size,x_size*4/5])
     label_position.set_renderer(fig)
     scatter = plt.scatter([],[],c=[],lw = 0)
@@ -139,24 +139,25 @@ def create_animation(con, cur, tag, algo='tsne'):
     plt.ylim([-15,15])
     label=[]
     for t in range(top_nb_label):
-        label.append(plt.text(.5, .5, '', fontsize=12, multialignment='center'))
+        label.append(plt.text(.5, .5, '', fontsize=9, multialignment='center'))
 
 
     # get data
     data = {}
     list_keys = []
-    #cur.execute(sql)
-    #rows = cur.fetchall()
-    #data_by_date = itertools.groupby(rows, key=itemgetter(0))
-    #for key, items in data_by_date:
-    #    data[key]=list(items)
-    #    list_keys.append(key)
+    cur.execute(sql)
+    rows = cur.fetchall()
+    data_by_date = itertools.groupby(rows, key=itemgetter(0))
+    for key, items in data_by_date:
+        data[key]=list(items)
+        list_keys.append(key)
 
 
-    #pickle.dump(data, open('data-a.p','wb'))
-    #pickle.dump(list_keys, open('list-a.p', 'wb'))
-    data = pickle.load(open('data-y.p','rb'))
-    list_keys = pickle.load(open('list-y.p','rb'))
+    pickle.dump(data, open('pickles/data-s.p','wb'))
+    pickle.dump(list_keys, open('pickles/list-s.p', 'wb'))
+
+    data = pickle.load(open('pickles/data-s.p','rb'))
+    list_keys = pickle.load(open('pickles/list-s.p','rb'))
 
     def init():
         return scatter
@@ -184,13 +185,33 @@ def create_animation(con, cur, tag, algo='tsne'):
         return chart,
 
     anim = animation.FuncAnimation(fig, update_chart, init_func=init, frames=len(list_keys), fargs=(scatter,))
-    anim.save('chart.gif',  writer='imagemagick', fps=1)
+    anim.save('chart-year-month.gif',  writer='imagemagick', fps=1)
     #plt.show()
 
 def create_chart_scatter_bokeh(con, cur, tag, algo='tsne'):
+    sql = """   select strftime('%Y-%m',ws.stamp) fdate, w.word, w.word_id, v.x, v.y, v.topic, m.similarity, sum(nb) n
+                from word_matrix m
+                join word_matrix_words w on m.word_index=w.word_index
+                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+                join words_stats ws on ws.word_id=w.word_id
+                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01')
+                group by fdate, w.word, w.word_id, v.x, v.y, v.topic, m.similarity
+                having sum(nb)>0
+                order by fdate"""
+    data = {}
+    list_keys = []
+    cur.execute(sql)
+    rows = cur.fetchall()
+    data_by_date = itertools.groupby(rows, key=itemgetter(0))
+    for key, items in data_by_date:
+        data[key]=list(items)
+        list_keys.append(key)
 
-    data = pickle.load(open('data-h.p','rb'))
-    list_keys = pickle.load(open('list-h.p','rb'))
+    pickle.dump(data, open('pickles/data-scatter.p','wb'))
+    pickle.dump(list_keys, open('pickles/list-scatter.p', 'wb'))
+
+    data = pickle.load(open('pickles/data-scatter.p','rb'))
+    list_keys = pickle.load(open('pickles/list-scatter.p','rb'))
 
     key = list_keys[0]
     current_data = data[key]
@@ -220,7 +241,7 @@ def create_chart_scatter_bokeh(con, cur, tag, algo='tsne'):
     )
 
     # output to static HTML file
-    output_file("scatter.html",)
+    output_file("viz/charts/scatter.html",)
 
     # create a new plot with a title and axis labels
 
@@ -235,40 +256,40 @@ def create_chart_scatter_bokeh(con, cur, tag, algo='tsne'):
 
 def create_chart_heatmap_bokeh(con, cur, tag, topic_description, algo='tsne'):
 
-#    # load data for chart
-#    sql = """   select strftime('%Y',ws.stamp) date, v.topic, sum(nb) n
-#                from word_matrix m
-#                join word_matrix_words w on m.word_index=w.word_index
-#                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
-#                join words_stats ws on ws.word_id=w.word_id
-#                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.5
-#                group by date, v.topic
-#                having sum(nb)>0
-#                order by date, v.topic"""""
-#
-#    cur.execute(sql)
-#    rows = cur.fetchall()
-#    raw_data = []
-#    for row in rows:
-#        raw_data.append(row)
-#    pickle.dump(raw_data, open('pickles/heatmap-all-chart.p','wb'))
-#
-#    # load data for description
-#    sql = """   select strftime('%Y',ws.stamp) date, v.topic, w.word, sum(nb) n
-#                from word_matrix m
-#                join word_matrix_words w on m.word_index=w.word_index
-#                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
-#                join words_stats ws on ws.word_id=w.word_id
-#                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.5
-#                group by date, v.topic, w.word
-#                having sum(nb)>0"""""
-#
-#    cur.execute(sql)
-#    rows = cur.fetchall()
-#    raw_words = []
-#    for row in rows:
-#        raw_words.append(row)
-#    pickle.dump(raw_words, open('pickles/heatmap-all-desc.p','wb'))
+    # load data for chart
+    sql = """   select strftime('%Y-%m',ws.stamp) date, v.topic, sum(nb) n
+                from word_matrix m
+                join word_matrix_words w on m.word_index=w.word_index
+                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+                join words_stats ws on ws.word_id=w.word_id
+                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.5
+                group by date, v.topic
+                having sum(nb)>0
+                order by date, v.topic"""""
+
+    cur.execute(sql)
+    rows = cur.fetchall()
+    raw_data = []
+    for row in rows:
+        raw_data.append(row)
+    pickle.dump(raw_data, open('pickles/heatmap-all-chart.p','wb'))
+
+    # load data for description
+    sql = """   select strftime('%Y-%m',ws.stamp) date, v.topic, w.word, sum(nb) n
+                from word_matrix m
+                join word_matrix_words w on m.word_index=w.word_index
+                join computed_viz v on v.word_index=w.word_index and v.topic=m.topic_id
+                join words_stats ws on ws.word_id=w.word_id
+                where algo='tsne' and (ws.stamp between '2000-01-01' and '2016-01-01') and m.similarity>0.5
+                group by date, v.topic, w.word
+                having sum(nb)>0"""""
+
+    cur.execute(sql)
+    rows = cur.fetchall()
+    raw_words = []
+    for row in rows:
+        raw_words.append(row)
+    pickle.dump(raw_words, open('pickles/heatmap-all-desc.p','wb'))
 
     # load for faster testing
     raw_data = pickle.load(open('pickles/heatmap-all-chart.p','rb'))
@@ -321,7 +342,7 @@ def create_chart_heatmap_bokeh(con, cur, tag, topic_description, algo='tsne'):
 
 
     output_file("viz/charts/heatmap.html",)
-    p = figure(plot_width=1200, plot_height=500, x_range=x_range, y_range=y_range)
+    p = figure(plot_width=1200, plot_height=1000, x_range=x_range, y_range=y_range)
     p.rect("topic","date", 1, 1, source=source,color='color',alpha=0.8, line_color=None)
     p.grid.grid_line_color = None
     p.axis.axis_line_color = None

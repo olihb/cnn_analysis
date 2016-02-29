@@ -20,7 +20,7 @@ PATTERN = re.compile('([A-Za-z0-9_/-]+)', re.UNICODE)
 
 # config dates
 start_date = "2000-01-01"
-end_date =  "2015-11-01"
+end_date =  "2015-12-31"
 
 # data structures
 stop_words = set()
@@ -30,7 +30,7 @@ current_dict_index = 0
 
 query = {
     "query": {"match_all": {}},
-    "filter": {"range" : {"metadata.date" : {"gte" : start_date,"lt" : end_date}}},
+    "filter": {"range" : {"metadata.date" : {"gte" : start_date,"lte" : end_date}}},
     "sort": [{"metadata.date" : {"order" : "asc"}},{"metadata.link" : {"order" : "asc"}}]
 }
 

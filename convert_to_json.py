@@ -12,11 +12,11 @@ date_file = 'data/cnn/cnn.date'
 linear_matrix_file = 'data/cnn/cnn.linear'
 
 # database
-database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/data/out-100/topics.db"
+database = "/home/olihb/IdeaProjects/cnn_analysis/data/cnn/topics.db"
 
 
 # dynamo table
-dynamoDB_table = 'cnn_2001'
+dynamoDB_table = 'cnn_2015'
 
 def load_dict(filename):
     print "Load dictionary"
@@ -119,7 +119,7 @@ def main(argv):
 
                     batch.put_item(data=output)
 
-        # send to dynamodb
+        # send to database
         elif opt =='-d':
 
             con = lite.connect(database)

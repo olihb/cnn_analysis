@@ -14,12 +14,13 @@ $(document).ready(function () {
 
 
 function queryDynamoDB(tag) {
+    var input_tag = tag.toLowerCase();
     // retrieve DynamoDB
     dynamodb.getItem({
             TableName:'cnn_2015',
             Key:{
                 word:{
-                    S:tag}
+                    S:input_tag}
             }
         }, dynamoDBResults
     );
@@ -84,9 +85,10 @@ function addSeries(result) {
 }
 
 function removeSeries(tag) {
+    var input_tag = tag.toLowerCase();
     var seriesLength = chart.series.length;
     for (var i = seriesLength - 1; i > -1; i--) {
-        if (chart.series[i].name == tag)
+        if (chart.series[i].name == input_tag)
             chart.series[i].remove();
     }
     if (chart.series.length == 0) {
@@ -219,7 +221,7 @@ function initializeInterface(topics) {
             enabled:true
         },
         tooltip: {
-            valueDecimals: 1,
+            valueDecimals: 2,
             valueSuffix: ' %'
         }
     });
